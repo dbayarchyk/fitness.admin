@@ -1,0 +1,716 @@
+# CompletedWorkout schema
+type CompletedWorkout {
+  user: User
+  date: String!
+  exerciseAproaches(after: String, first: Int, before: String, last: Int): ExerciseAproacheConnection
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type CompletedWorkoutConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CompletedWorkoutEdge]
+}
+
+# An edge in a connection.
+type CompletedWorkoutEdge {
+  # The item at the end of the edge
+  node: CompletedWorkout
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# CompletedWorkout input schema
+input CompletedWorkoutInput {
+  user: String!
+  date: String
+  exerciseAproaches: [ExerciseAproacheInput]
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateCompletedWorkoutInput {
+  data: CompletedWorkoutInput!
+  clientMutationId: String
+}
+
+type CreateCompletedWorkoutPayload {
+  createdCompletedWorkoutEdge: CompletedWorkoutEdge
+  clientMutationId: String
+}
+
+input CreateFoodIntakeInput {
+  data: FoodIntakeInput!
+  clientMutationId: String
+}
+
+type CreateFoodIntakePayload {
+  createdFoodIntakeEdge: FoodIntakeEdge
+  clientMutationId: String
+}
+
+input CreateUserInput {
+  data: UserInput!
+  clientMutationId: String
+}
+
+type CreateUserPayload {
+  createdUser: User
+  clientMutationId: String
+}
+
+# Exercise schema
+type Exercise implements Node {
+  # The ID of an object
+  id: ID!
+  name: String!
+  avatarUrl: String
+  photos(after: String, first: Int, before: String, last: Int): StringConnection
+  muscles(after: String, first: Int, before: String, last: Int): MuscleConnection
+  description: String
+  complexity: Int!
+  videoUrl: String
+  createdAt: String
+  updatedAt: String
+}
+
+# ExerciseAproache schema
+type ExerciseAproache {
+  exercise: Exercise
+  count: Int!
+}
+
+# A connection to a list of items.
+type ExerciseAproacheConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ExerciseAproacheEdge]
+}
+
+# An edge in a connection.
+type ExerciseAproacheEdge {
+  # The item at the end of the edge
+  node: ExerciseAproache
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# ExerciseAproache input schema
+input ExerciseAproacheInput {
+  exercise: String!
+  count: Int!
+}
+
+# A connection to a list of items.
+type ExerciseConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ExerciseEdge]
+}
+
+# An edge in a connection.
+type ExerciseEdge {
+  # The item at the end of the edge
+  node: Exercise
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Feed schema
+type Feed {
+  # The ID of an object
+  id: ID!
+  food: Food
+  weight: Int!
+}
+
+# A connection to a list of items.
+type FeedConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [FeedEdge]
+}
+
+# An edge in a connection.
+type FeedEdge {
+  # The item at the end of the edge
+  node: Feed
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Feed input schema
+input FeedInput {
+  food: String!
+  weight: Int!
+}
+
+input FollowMealPlanInput {
+  viewer: String!
+  mealPlan: String!
+  clientMutationId: String
+}
+
+type FollowMealPlanPayload {
+  updatedViewer: Viewer
+  clientMutationId: String
+}
+
+input FollowWorkoutPlanInput {
+  viewer: String!
+  workoutPlan: String!
+  clientMutationId: String
+}
+
+type FollowWorkoutPlanPayload {
+  updatedViewer: Viewer
+  clientMutationId: String
+}
+
+# Food schema
+type Food implements Node {
+  # The ID of an object
+  id: ID!
+  name: String!
+  category: String!
+  avatarUrl: String
+  calorificValue: Float!
+  proteins: Float!
+  carbohydrates: Float!
+  fats: Float!
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type FoodConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [FoodEdge]
+}
+
+# An edge in a connection.
+type FoodEdge {
+  # The item at the end of the edge
+  node: Food
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# FoodIntake schema
+type FoodIntake implements Node {
+  # The ID of an object
+  id: ID!
+  user: User
+  feeds(after: String, first: Int, before: String, last: Int): FeedConnection
+  date: String
+  createdAt: String
+  updatedAt: String
+  nutritionRate: NutritionRate
+}
+
+# A connection to a list of items.
+type FoodIntakeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [FoodIntakeEdge]
+}
+
+# An edge in a connection.
+type FoodIntakeEdge {
+  # The item at the end of the edge
+  node: FoodIntake
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# FoodIntake input schema
+input FoodIntakeInput {
+  user: String!
+  feeds: [FeedInput]
+  date: String
+}
+
+type LoginPayload {
+  # Auth token
+  token: String!
+}
+
+# Meal schema
+type Meal {
+  feeds(after: String, first: Int, before: String, last: Int): FeedConnection
+  date: String!
+}
+
+# A connection to a list of items.
+type MealConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MealEdge]
+}
+
+# An edge in a connection.
+type MealEdge {
+  # The item at the end of the edge
+  node: Meal
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# MealPlan schema
+type MealPlan implements Node {
+  # The ID of an object
+  id: ID!
+  name: String!
+  avatarUrl: String
+  meals(after: String, first: Int, before: String, last: Int): MealConnection
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type MealPlanConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MealPlanEdge]
+}
+
+# An edge in a connection.
+type MealPlanEdge {
+  # The item at the end of the edge
+  node: MealPlan
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Muscle schema
+type Muscle implements Node {
+  # The ID of an object
+  id: ID!
+  name: String!
+  group: String!
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type MuscleConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MuscleEdge]
+}
+
+# An edge in a connection.
+type MuscleEdge {
+  # The item at the end of the edge
+  node: Muscle
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Mutation {
+  login(email: String!, password: String!): LoginPayload
+  createUser(input: CreateUserInput!): CreateUserPayload
+  removeUser(input: RemoveUserInput!): RemoveUserPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  removeFoodIntake(input: RemoveFoodIntakeInput!): RemoveFoodIntakePayload
+  createFoodIntake(input: CreateFoodIntakeInput!): CreateFoodIntakePayload
+  updateFoodIntake(input: UpdateFoodIntakeInput!): UpdateFoodIntakePayload
+  removeCompletedWorkout(input: RemoveCompletedWorkoutInput!): RemoveCompletedWorkoutPayload
+  createCompletedWorkout(input: CreateCompletedWorkoutInput!): CreateCompletedWorkoutPayload
+  updateCompletedWorkout(input: UpdateCompletedWorkoutInput!): UpdateCompletedWorkoutPayload
+  followMealPlan(input: FollowMealPlanInput!): FollowMealPlanPayload
+  unfollowMealPlan(input: UnfollowMealPlanInput!): UnfollowMealPlanPayload
+  followWorkoutPlan(input: FollowWorkoutPlanInput!): FollowWorkoutPlanPayload
+  unfollowWorkoutPlan(input: UnfollowWorkoutPlanInput!): UnfollowWorkoutPlanPayload
+  updateViewer(input: UpdateViewerInput!): UpdateViewerPayload
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# NutritionRate schema
+type NutritionRate {
+  calorificValue: Float!
+  proteins: Float!
+  carbohydrates: Float!
+  fats: Float!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  viewer: Viewer
+  muscles(after: String, first: Int, before: String, last: Int): MuscleConnection
+  exercises(after: String, first: Int, before: String, last: Int): ExerciseConnection
+  workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection
+  completedWorkouts(after: String, first: Int, before: String, last: Int): CompletedWorkoutConnection
+  foods(after: String, first: Int, before: String, last: Int): FoodConnection
+  mealPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanConnection
+  foodIntakes(after: String, first: Int, before: String, last: Int): FoodIntakeConnection
+}
+
+input RemoveCompletedWorkoutInput {
+  completedWorkoutId: String!
+  clientMutationId: String
+}
+
+type RemoveCompletedWorkoutPayload {
+  removedCompletedWorkout: CompletedWorkout
+  clientMutationId: String
+}
+
+input RemoveFoodIntakeInput {
+  foodIntakeId: String!
+  clientMutationId: String
+}
+
+type RemoveFoodIntakePayload {
+  removedFoodIntake: FoodIntake
+  clientMutationId: String
+}
+
+input RemoveUserInput {
+  userId: String!
+  clientMutationId: String
+}
+
+type RemoveUserPayload {
+  removedUser: User
+  clientMutationId: String
+}
+
+# A connection to a list of items.
+type StringConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [StringEdge]
+}
+
+# An edge in a connection.
+type StringEdge {
+  # The item at the end of the edge
+  node: String
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input UnfollowMealPlanInput {
+  viewer: String!
+  clientMutationId: String
+}
+
+type UnfollowMealPlanPayload {
+  updatedViewer: Viewer
+  clientMutationId: String
+}
+
+input UnfollowWorkoutPlanInput {
+  viewer: String!
+  clientMutationId: String
+}
+
+type UnfollowWorkoutPlanPayload {
+  updatedViewer: Viewer
+  clientMutationId: String
+}
+
+input UpdateCompletedWorkoutInput {
+  id: String!
+  data: CompletedWorkoutInput!
+  clientMutationId: String
+}
+
+type UpdateCompletedWorkoutPayload {
+  updatedCompletedWorkoutEdge: CompletedWorkoutEdge
+  clientMutationId: String
+}
+
+input UpdateFoodIntakeInput {
+  id: String!
+  data: FoodIntakeInput!
+  clientMutationId: String
+}
+
+type UpdateFoodIntakePayload {
+  updatedFoodIntakeEdge: FoodIntakeEdge
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  id: String!
+  data: UserInput!
+  clientMutationId: String
+}
+
+type UpdateUserPayload {
+  updatedUserEdge: UserEdge
+  clientMutationId: String
+}
+
+input UpdateViewerInput {
+  id: String!
+  data: ViewerUpdateInput!
+  clientMutationId: String
+}
+
+type UpdateViewerPayload {
+  updatedViewer: Viewer
+  clientMutationId: String
+}
+
+# User schema
+type User implements Node {
+  # The ID of an object
+  id: ID!
+  email: String!
+  password: String!
+  name: String
+  surname: String
+  role: String
+  avatarUrl: String
+  age: Int!
+  gender: String!
+  height: Int!
+  weight: Float!
+  purpose: String!
+  bodyMassIndex: Float
+  createdAt: String
+  updatedAt: String
+  followingWorkoutPlan: WorkoutPlan
+  completedWorkouts(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): CompletedWorkoutConnection
+  weightRecords(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): WeightRecordConnection
+  dailyNutritionRate: NutritionRate
+  followingMealPlan: MealPlan
+  foodIntakes(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): FoodIntakeConnection
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# User input schema
+input UserInput {
+  email: String!
+  password: String!
+  name: String
+  surname: String
+  role: String
+  avatarUrl: String
+  age: Int!
+  gender: String!
+  height: Int!
+  weight: Float!
+  purpose: String!
+  bodyMassIndex: Float
+  createdAt: String
+  updatedAt: String
+  followingWorkoutPlan: String
+  followingMealPlan: String
+}
+
+# Viewer schema
+type Viewer implements Node {
+  # The ID of an object
+  id: ID!
+  email: String!
+  password: String!
+  name: String
+  surname: String
+  role: String
+  avatarUrl: String
+  age: Int!
+  gender: String!
+  height: Int!
+  weight: Float!
+  purpose: String!
+  bodyMassIndex: Float
+  createdAt: String
+  updatedAt: String
+  followingWorkoutPlan: WorkoutPlan
+  completedWorkouts(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): CompletedWorkoutConnection
+  weightRecords(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): WeightRecordConnection
+  dailyNutritionRate: NutritionRate
+  followingMealPlan: MealPlan
+  foodIntakes(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String): FoodIntakeConnection
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  mealPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanConnection
+  workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection
+  workout: Workout
+}
+
+# ViewerUpdate input schema
+input ViewerUpdateInput {
+  email: String
+  password: String
+  name: String
+  surname: String
+  role: String
+  avatarUrl: String
+  age: Int
+  gender: String
+  height: Int
+  weight: Float
+  purpose: String
+  bodyMassIndex: Float
+  createdAt: String
+  updatedAt: String
+  followingWorkoutPlan: String
+  followingMealPlan: String
+}
+
+# WeightRecord schema
+type WeightRecord {
+  user: User
+  date: String!
+  weight: Float!
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type WeightRecordConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [WeightRecordEdge]
+}
+
+# An edge in a connection.
+type WeightRecordEdge {
+  # The item at the end of the edge
+  node: WeightRecord
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Workout schema
+type Workout {
+  date: String!
+  exerciseAproaches(after: String, first: Int, before: String, last: Int): ExerciseAproacheConnection
+}
+
+# A connection to a list of items.
+type WorkoutConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [WorkoutEdge]
+}
+
+# An edge in a connection.
+type WorkoutEdge {
+  # The item at the end of the edge
+  node: Workout
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# WorkoutPlan schema
+type WorkoutPlan implements Node {
+  # The ID of an object
+  id: ID!
+  name: String!
+  avatarUrl: String
+  gender: String
+  workouts(after: String, first: Int, before: String, last: Int): WorkoutConnection
+  isPrivate: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type WorkoutPlanConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [WorkoutPlanEdge]
+}
+
+# An edge in a connection.
+type WorkoutPlanEdge {
+  # The item at the end of the edge
+  node: WorkoutPlan
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
