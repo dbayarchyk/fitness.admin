@@ -49,7 +49,7 @@ class Manage extends Component {
     return (
       <div>
         <Toolbar>
-          <ToolbarGroup firstChild>
+          <ToolbarGroup>
             <ToolbarTitle text={toolbarTitle} />
           </ToolbarGroup>
         </Toolbar>

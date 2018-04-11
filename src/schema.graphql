@@ -54,6 +54,16 @@ type CreateFoodIntakePayload {
   clientMutationId: String
 }
 
+input CreateMuscleInput {
+  data: MuscleInput!
+  clientMutationId: String
+}
+
+type CreateMusclePayload {
+  createdMuscleEdge: MuscleEdge
+  clientMutationId: String
+}
+
 input CreateUserInput {
   data: UserInput!
   clientMutationId: String
@@ -337,6 +347,14 @@ type MuscleEdge {
   cursor: String!
 }
 
+# Muscle input schema
+input MuscleInput {
+  name: String!
+  group: String!
+  createdAt: String
+  updatedAt: String
+}
+
 type Mutation {
   login(email: String!, password: String!): LoginPayload
   createUser(input: CreateUserInput!): CreateUserPayload
@@ -353,6 +371,9 @@ type Mutation {
   followWorkoutPlan(input: FollowWorkoutPlanInput!): FollowWorkoutPlanPayload
   unfollowWorkoutPlan(input: UnfollowWorkoutPlanInput!): UnfollowWorkoutPlanPayload
   updateViewer(input: UpdateViewerInput!): UpdateViewerPayload
+  removeMuscle(input: RemoveMuscleInput!): RemoveMusclePayload
+  createMuscle(input: CreateMuscleInput!): CreateMusclePayload
+  updateMuscle(input: UpdateMuscleInput!): UpdateMusclePayload
 }
 
 # An object with an ID
@@ -418,6 +439,16 @@ input RemoveFoodIntakeInput {
 
 type RemoveFoodIntakePayload {
   removedFoodIntake: FoodIntake
+  clientMutationId: String
+}
+
+input RemoveMuscleInput {
+  muscleId: String!
+  clientMutationId: String
+}
+
+type RemoveMusclePayload {
+  removedMuscle: Muscle
   clientMutationId: String
 }
 
@@ -488,6 +519,17 @@ input UpdateFoodIntakeInput {
 
 type UpdateFoodIntakePayload {
   updatedFoodIntakeEdge: FoodIntakeEdge
+  clientMutationId: String
+}
+
+input UpdateMuscleInput {
+  id: String!
+  data: MuscleInput!
+  clientMutationId: String
+}
+
+type UpdateMusclePayload {
+  updatedMuscleEdge: MuscleEdge
   clientMutationId: String
 }
 
