@@ -607,9 +607,13 @@ type Viewer implements Node {
     # The ID of an object
     id: ID!
   ): Node
+  workout: Workout
   mealPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanConnection
   workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection
-  workout: Workout
+  muscles(after: String, first: Int, before: String, last: Int): MuscleConnection
+  exercises(after: String, first: Int, before: String, last: Int): ExerciseConnection
+  foods(after: String, first: Int, before: String, last: Int): FoodConnection
+  users(after: String, first: Int, before: String, last: Int): UserConnection
 }
 
 # ViewerUpdate input schema

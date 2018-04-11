@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import LoginForm from './LoginForm';
+import LoginForm from './LoginForm';
 
 const Login = ({
   email,
@@ -12,35 +12,18 @@ const Login = ({
   isSignInButtonDisabled,
 }) => (
   <div>
-    <h1>
+    <h3>
       Welcome to Fitness Admin Console
-    </h1>
+    </h3>
   
-    {/* <LoginForm
+    <LoginForm
       email={email}
       password={password}
       onFieldChange={onFieldChange}
+      onSignUpClick={onSignUpClick}
+      onSignInClick={onSignInClick}
+      isSignInButtonDisabled={isSignInButtonDisabled}
     />
-
-    <View style={styles.buttons}>
-      <Button
-        block
-        onPress={onSignInClick}
-        style={styles.button}
-        disabled={isSignInButtonDisabled}
-      >
-        <Text>Log In</Text>
-      </Button>
-
-      <Button
-        success
-        block
-        onPress={onSignUpClick}
-        style={styles.button}
-      >
-        <Text>Create Account</Text>
-      </Button>
-    </View> */}
   </div>
 );
 

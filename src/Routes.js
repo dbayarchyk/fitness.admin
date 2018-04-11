@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import restrictedRoute from './hoc/restrictedRoute';
+
 import Login from './screens/Login';
-// import SignUp from './screens/SignUp';
-// import Home from './screens/Home';
+import Home from './screens/Home';
 
 const Routes = () => (
   <Switch>
     <Route exact path="/signin" component={Login} />
-    {/* <Route exact path="/signup" component={SignUp} />
-    <Route path="/" component={Home} /> */}
+    <Route path="/" component={Home} />
   </Switch>
 );
 

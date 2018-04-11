@@ -3,6 +3,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import './assets/styles/index.css';
+
 import Routes from './Routes';
 
 // Needed for onTouchTap

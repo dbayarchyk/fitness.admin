@@ -35,6 +35,8 @@ class Login extends Component {
 
     LoginMutation(this.state.email, this.state.password)
       .then((response, errors) => {
+        this.setState({ isLoading: false });
+
         if (response.login) {
           localStorage.setItem(CONFIG.AUTH_TOKEN, response.login.token);
           alert('Welcome to the admin console!');
@@ -42,8 +44,6 @@ class Login extends Component {
         } else {
           alert('Oops, something went wrong!');
         }
-
-        this.setState({ isLoading: false });
       })
       .catch((errors) => {
         if (errors && errors.length) {
