@@ -23,4 +23,4 @@ export default {
     type: 'workoutPlans',
     title: 'Workout Plans',
   },
-}
+};

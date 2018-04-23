@@ -33,10 +33,7 @@ class MuscleBuilder extends Component {
   };
 
   static defaultProps = {
-    node: {
-      name: '',
-      group: '',
-    },
+    node: {},
   };
 
   constructor(props) {
@@ -137,6 +134,7 @@ class MuscleBuilder extends Component {
         <section>
           <div>
             <TextField
+              fullWidth
               value={this.state.name}
               onChange={(e, name) => this.onFieldChange('name', name)}
               floatingLabelText="Muscle Name"
@@ -146,6 +144,7 @@ class MuscleBuilder extends Component {
 
           <div>
             <SelectField
+              fullWidth
               value={this.state.group}
               onChange={(e, index, group) => this.onFieldChange('group', group)}
               floatingLabelText="Muscle Group"

@@ -6,23 +6,23 @@ import {
 import Environment from '../Environment';
 
 const mutation = graphql`
-  mutation CreateMuscleMutation ($input: CreateMuscleInput!) {
-    createMuscle(input: $input) {
-      createdMuscleEdge {
+  mutation UpdateExerciseMutation ($input: UpdateExerciseInput!) {
+    updateExercise(input: $input) {
+      updatedExerciseEdge {
         cursor
         node {
           id
           name
-          group
         }
       }
     }
   }
 `;
 
-const CreateMuscleMutation = (data, viewer) => {
+const UpdateExerciseMutation = (id, data, viewer) => {
   const variables = {
     input: {
+      id,
       data,
       clientMutationId: '',
     },
@@ -40,4 +40,4 @@ const CreateMuscleMutation = (data, viewer) => {
   });
 };
 
-export default CreateMuscleMutation;
+export default UpdateExerciseMutation;
