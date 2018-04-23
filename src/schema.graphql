@@ -54,6 +54,11 @@ type CreateExercisePayload {
   clientMutationId: String
 }
 
+input CreateFoodInput {
+  data: FoodInput!
+  clientMutationId: String
+}
+
 input CreateFoodIntakeInput {
   data: FoodIntakeInput!
   clientMutationId: String
@@ -61,6 +66,11 @@ input CreateFoodIntakeInput {
 
 type CreateFoodIntakePayload {
   createdFoodIntakeEdge: FoodIntakeEdge
+  clientMutationId: String
+}
+
+type CreateFoodPayload {
+  createdFoodEdge: FoodEdge
   clientMutationId: String
 }
 
@@ -247,6 +257,19 @@ type FoodEdge {
   cursor: String!
 }
 
+# Food input schema
+input FoodInput {
+  name: String!
+  category: String!
+  avatarUrl: String
+  calorificValue: Float!
+  proteins: Float!
+  carbohydrates: Float!
+  fats: Float!
+  createdAt: String
+  updatedAt: String
+}
+
 # FoodIntake schema
 type FoodIntake implements Node {
   # The ID of an object
@@ -400,6 +423,9 @@ type Mutation {
   removeExercise(input: RemoveExerciseInput!): RemoveExercisePayload
   createExercise(input: CreateExerciseInput!): CreateExercisePayload
   updateExercise(input: UpdateExerciseInput!): UpdateExercisePayload
+  removeFood(input: RemoveFoodInput!): RemoveFoodPayload
+  createFood(input: CreateFoodInput!): CreateFoodPayload
+  updateFood(input: UpdateFoodInput!): UpdateFoodPayload
 }
 
 # An object with an ID
@@ -468,6 +494,11 @@ type RemoveExercisePayload {
   clientMutationId: String
 }
 
+input RemoveFoodInput {
+  foodId: String!
+  clientMutationId: String
+}
+
 input RemoveFoodIntakeInput {
   foodIntakeId: String!
   clientMutationId: String
@@ -475,6 +506,11 @@ input RemoveFoodIntakeInput {
 
 type RemoveFoodIntakePayload {
   removedFoodIntake: FoodIntake
+  clientMutationId: String
+}
+
+type RemoveFoodPayload {
+  removedFood: Food
   clientMutationId: String
 }
 
@@ -558,6 +594,12 @@ type UpdateExercisePayload {
   clientMutationId: String
 }
 
+input UpdateFoodInput {
+  id: String!
+  data: FoodInput!
+  clientMutationId: String
+}
+
 input UpdateFoodIntakeInput {
   id: String!
   data: FoodIntakeInput!
@@ -566,6 +608,11 @@ input UpdateFoodIntakeInput {
 
 type UpdateFoodIntakePayload {
   updatedFoodIntakeEdge: FoodIntakeEdge
+  clientMutationId: String
+}
+
+type UpdateFoodPayload {
+  updatedFoodEdge: FoodEdge
   clientMutationId: String
 }
 

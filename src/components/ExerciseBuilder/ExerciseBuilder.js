@@ -11,8 +11,6 @@ import {
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
 import checkValidation from '../../helpers/checkValidation';
 
@@ -20,8 +18,6 @@ import CreateExerciseMutation from '../../mutations/CreateExercise';
 import UpdateExerciseMutation from '../../mutations/UpdateExercise';
 
 import BackgroundSpinner from '../framework/BackgroundSpinner';
-
-import * as MUSCLE_GROUP from '../../constants/muscleGroup';
 
 import { url as urlRegExp } from '../../constants/regExp';
 
@@ -40,13 +36,6 @@ class ExerciseBuilder extends Component {
               node: PropTypes.string.isRequired,
             })
           )
-        }).isRequired,
-        photos: PropTypes.shape({
-          edges: PropTypes.arrayOf(
-            PropTypes.shape({
-              node: PropTypes.string.isRequired,
-            })
-          ).isRequired,
         }).isRequired,
         description: PropTypes.string,
         complexity: PropTypes.number,
