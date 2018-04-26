@@ -4,16 +4,21 @@ import { graphql, createRefetchContainer } from 'react-relay';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
-class SelectMuscleModal extends Component {
+class SelectFoodModal extends Component {
   static propTypes = {
     title: PropTypes.string,
     open: PropTypes.bool,
     viewer: PropTypes.shape({
-      muscles: PropTypes.shape({
+      foods: PropTypes.shape({
         edges: PropTypes.arrayOf(
           PropTypes.shape({
-            node: PropTypes.object.isRequired,
+            node: PropTypes.shape({
+              id: PropTypes.string.isRequired,
+              name: PropTypes.string,
+              avatarUrl: PropTypes.string,
+            }).isRequired,
           })
         ).isRequired,
       }).isRequired,
@@ -21,18 +26,18 @@ class SelectMuscleModal extends Component {
     relay: PropTypes.shape({
       refetch: PropTypes.func.isRequired,
     }).isRequired,
-    onSelectMuslce: PropTypes.func,
+    onSelectFood: PropTypes.func,
     onRequestClose: PropTypes.func,
   };
 
   static defaultProps = {
-    title: 'Select Muscle',
+    title: 'Select Food',
     open: false,
-    onSelectMuslce: () => {},
+    onSelectFood: () => {},
     onRequestClose: () => {},
   };
 
-  filterMuscles = (e, filterByName) => {
+  filterFoods = (e, filterByName) => {
     this.props.relay.refetch(
       { name: filterByName },
       null,
@@ -41,7 +46,7 @@ class SelectMuscleModal extends Component {
   }
 
   render() {
-    const { muscles } = this.props.viewer;
+    const { foods } = this.props.viewer;
 
     return (
       <Dialog
@@ -51,17 +56,18 @@ class SelectMuscleModal extends Component {
       >
         <TextField
           fullWidth
-          onChange={this.filterMuscles}
-          hintText="Filter muscle list"
+          onChange={this.filterFoods}
+          hintText="Filter food list"
         />
 
         <List>
           {
-            muscles.edges.map((edge) => (
+            foods.edges.map((edge) => (
               <ListItem
                 key={edge.node.id}
+                leftAvatar={<Avatar src={edge.node.avatarUrl} />}
                 primaryText={edge.node.name}
-                onClick={() => this.props.onSelectMuslce(edge)}
+                onClick={() => this.props.onSelectFood(edge)}
               />
             ))
           }
@@ -72,20 +78,21 @@ class SelectMuscleModal extends Component {
 }
 
 export default createRefetchContainer(
-  SelectMuscleModal,
+  SelectFoodModal,
   {
     viewer: graphql`
-      fragment SelectMuscleModal_viewer on Viewer
+      fragment SelectFoodModal_viewer on Viewer
       @argumentDefinitions (
         name: { type: "String" }
       ) {
-        muscles (
+        foods (
           name: $name
         ) {
           edges {
             node {
               id
               name
+              avatarUrl
             }
           }
         }
@@ -93,11 +100,11 @@ export default createRefetchContainer(
     `,
   },
   graphql`
-    query SelectMuscleModalRefetchQuery (
+    query SelectFoodModalRefetchQuery (
       $name: String,
     ) {
       viewer {
-        ...SelectMuscleModal_viewer
+        ...SelectFoodModal_viewer
         @arguments(
           name: $name
         )
