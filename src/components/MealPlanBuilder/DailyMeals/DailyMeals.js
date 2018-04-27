@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Card, CardText, CardActions, CardHeader, } from 'material-ui/Card';
-import { List, ListItem } from 'material-ui/List';
+import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 

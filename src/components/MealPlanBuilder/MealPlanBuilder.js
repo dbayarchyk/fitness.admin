@@ -84,7 +84,7 @@ class MealPlanBuilder extends Component {
   
         if (response.createMealPlan) {
           alert('MealPlan has been created!');
-          this.props.history.push(`/mealPlan-builder/${response.createMealPlan.createdMealPlanEdge.node.id}`);
+          this.props.history.push(`/meal-plan-builder/${response.createMealPlan.createdMealPlanEdge.node.id}`);
         } else {
           alert('Oops, something went wrong!')
         }
