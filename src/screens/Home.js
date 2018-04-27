@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import HomeView from '../components/Home';
+import Dashboard from './Dashboard';
 import Manage from './Manage';
 import MuscleBuilder from './MuscleBuilder';
 import ExerciseBuilder from './ExerciseBuilder';
@@ -13,6 +14,9 @@ const Home = () => (
   <HomeView>
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/dashboard" />}/>
+
+      <Route exact path="/dashboard" component={Dashboard} />
+
       <Route exact path="/manage/:category" component={Manage} />
 
       <Route exact path="/muscle-builder" component={MuscleBuilder} />
