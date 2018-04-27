@@ -7,6 +7,7 @@ import MuscleBuilder from './MuscleBuilder';
 import ExerciseBuilder from './ExerciseBuilder';
 import FoodBuilder from './FoodBuilder';
 import MealPlanBuilder from './MealPlanBuilder';
+import WorkoutPlanBuilder from './WorkoutPlanBuilder';
 
 const Home = () => (
   <HomeView>
@@ -25,6 +26,9 @@ const Home = () => (
 
       <Route exact path="/meal-plan-builder" component={MealPlanBuilder} />
       <Route exact path="/meal-plan-builder/:id" component={MealPlanBuilder} />
+
+      <Route exact path="/workout-plan-builder" component={WorkoutPlanBuilder} />
+      <Route exact path="/workout-plan-builder/:id" component={WorkoutPlanBuilder} />
     </Switch>
   </HomeView>
 );

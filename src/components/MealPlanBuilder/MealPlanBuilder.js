@@ -83,7 +83,7 @@ class MealPlanBuilder extends Component {
         this.setState({ isLoading: false });
   
         if (response.createMealPlan) {
-          alert('MealPlan has been created!');
+          alert('Meal Plan has been created!');
           this.props.history.push(`/meal-plan-builder/${response.createMealPlan.createdMealPlanEdge.node.id}`);
         } else {
           alert('Oops, something went wrong!')
@@ -119,7 +119,7 @@ class MealPlanBuilder extends Component {
         this.setState({ isLoading: false });
   
         if (response.updateMealPlan) {
-          alert('MealPlan has been updated!');
+          alert('Meal Plan has been updated!');
         } else {
           alert('Oops, something went wrong!')
         }
@@ -206,13 +206,13 @@ class MealPlanBuilder extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup>
-            <ToolbarTitle text={isEditMode ? `MealPlan Builder: ${this.state.name}` : 'MealPlan Builder'} />
+            <ToolbarTitle text={isEditMode ? `Meal Plan Builder: ${this.state.name}` : 'Meal Plan Builder'} />
           </ToolbarGroup>
 
           <ToolbarGroup>
             <RaisedButton
               primary
-              label={isEditMode ? 'Save Changes' : 'Create MealPlan'}
+              label={isEditMode ? 'Save Changes' : 'Create Meal Plan'}
               onClick={this.submitChanges}
               disabled={!checkValidation(this.state, VALIDATION_CONFIG)}
             />
@@ -226,7 +226,7 @@ class MealPlanBuilder extends Component {
               fullWidth
               value={this.state.name}
               onChange={this.onFieldChange}
-              floatingLabelText="MealPlan Name"
+              floatingLabelText="Meal Plan Name"
               hintText="Enter muscle name"
             />
           </div>
@@ -237,8 +237,8 @@ class MealPlanBuilder extends Component {
               fullWidth
               value={this.state.avatarUrl}
               onChange={this.onFieldChange}
-              floatingLabelText="MealPlan Avatar URL"
-              hintText="Enter mealPlan avatar url"
+              floatingLabelText="Meal Plan Avatar URL"
+              hintText="Enter meal plan avatar url"
             />
           </div>
 

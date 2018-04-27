@@ -104,6 +104,16 @@ type CreateUserPayload {
   clientMutationId: String
 }
 
+input CreateWorkoutPlanInput {
+  data: WorkoutPlanInput!
+  clientMutationId: String
+}
+
+type CreateWorkoutPlanPayload {
+  createdWorkoutPlanEdge: WorkoutPlanEdge
+  clientMutationId: String
+}
+
 # Exercise schema
 type Exercise implements Node {
   # The ID of an object
@@ -454,6 +464,9 @@ type Mutation {
   removeMealPlan(input: RemoveMealPlanInput!): RemoveMealPlanPayload
   createMealPlan(input: CreateMealPlanInput!): CreateMealPlanPayload
   updateMealPlan(input: UpdateMealPlanInput!): UpdateMealPlanPayload
+  removeWorkoutPlan(input: RemoveWorkoutPlanInput!): RemoveWorkoutPlanPayload
+  createWorkoutPlan(input: CreateWorkoutPlanInput!): CreateWorkoutPlanPayload
+  updateWorkoutPlan(input: UpdateWorkoutPlanInput!): UpdateWorkoutPlanPayload
 }
 
 # An object with an ID
@@ -494,7 +507,7 @@ type Query {
   users(after: String, first: Int, before: String, last: Int): UserConnection
   viewer: Viewer
   muscles(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MuscleConnection
-  exercises(after: String, first: Int, before: String, last: Int): ExerciseConnection
+  exercises(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): ExerciseConnection
   workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection
   completedWorkouts(after: String, first: Int, before: String, last: Int): CompletedWorkoutConnection
   foods(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): FoodConnection
@@ -569,6 +582,16 @@ input RemoveUserInput {
 
 type RemoveUserPayload {
   removedUser: User
+  clientMutationId: String
+}
+
+input RemoveWorkoutPlanInput {
+  workoutPlanId: String!
+  clientMutationId: String
+}
+
+type RemoveWorkoutPlanPayload {
+  removedWorkoutPlan: WorkoutPlan
   clientMutationId: String
 }
 
@@ -698,6 +721,17 @@ type UpdateViewerPayload {
   clientMutationId: String
 }
 
+input UpdateWorkoutPlanInput {
+  id: String!
+  data: WorkoutPlanInput!
+  clientMutationId: String
+}
+
+type UpdateWorkoutPlanPayload {
+  updatedWorkoutPlanEdge: WorkoutPlanEdge
+  clientMutationId: String
+}
+
 # User schema
 type User implements Node {
   # The ID of an object
@@ -796,7 +830,7 @@ type Viewer implements Node {
   mealPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanConnection
   workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection
   muscles(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MuscleConnection
-  exercises(after: String, first: Int, before: String, last: Int): ExerciseConnection
+  exercises(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): ExerciseConnection
   foods(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): FoodConnection
   users(after: String, first: Int, before: String, last: Int): UserConnection
 }
@@ -901,5 +935,15 @@ type WorkoutPlanEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+# WorkoutPlan input schema
+input WorkoutPlanInput {
+  name: String!
+  avatarUrl: String
+  gender: String
+  isPrivate: Boolean
+  createdAt: String
+  updatedAt: String
 }
 
