@@ -1,24 +1,14 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageFoodsQuery {
+  query ManageFoodsQuery (
+    $sort: String,
+  ) {
     viewer {
-      foods {
-        edges {
-          node {
-            id
-            name
-            category
-            avatarUrl
-            calorificValue
-            proteins
-            carbohydrates
-            fats
-            createdAt
-            updatedAt
-          }
-        }
-      }
+      ...ManageFoods_viewer
+      @arguments(
+        sort: $sort
+      )
     }
   }
 `;

@@ -22,11 +22,13 @@ const COLUMNS = {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
   [CATEGORY.EXERCISES.type]: {
@@ -34,6 +36,7 @@ const COLUMNS = {
       name: 'avatarUrl',
       title: 'Avatar',
       filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
     },
     NAME: {
       name: 'name',
@@ -43,16 +46,19 @@ const COLUMNS = {
       name: 'muscles.edges',
       title: 'Muscles',
       filter: edges => edges.map(({ node }) => node.name).join(', '),
+      sortDisabled: true,
     },
     CREATED_DATE: {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
   [CATEGORY.USERS.type]: {
@@ -86,11 +92,13 @@ const COLUMNS = {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
   [CATEGORY.FOODS.type]: {
@@ -98,6 +106,7 @@ const COLUMNS = {
       name: 'avatarUrl',
       title: 'Avatar',
       filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
     },
     NAME: {
       name: 'name',
@@ -131,11 +140,13 @@ const COLUMNS = {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
   [CATEGORY.MEAL_PLANS.type]: {
@@ -143,6 +154,7 @@ const COLUMNS = {
       name: 'avatarUrl',
       title: 'Avatar',
       filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
     },
     NAME: {
       name: 'name',
@@ -152,11 +164,13 @@ const COLUMNS = {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
   [CATEGORY.WORKOUT_PLANS.type]: {
@@ -164,6 +178,7 @@ const COLUMNS = {
       name: 'avatarUrl',
       title: 'Avatar',
       filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
     },
     NAME: {
       name: 'name',
@@ -173,11 +188,13 @@ const COLUMNS = {
       name: 'createdAt',
       title: 'Created Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
     UPDATED_DATE: {
       name: 'updatedAt',
       title: 'Updated Date',
       filter: dateFilter,
+      defaultDirection: 'desc',
     },
   },
 };

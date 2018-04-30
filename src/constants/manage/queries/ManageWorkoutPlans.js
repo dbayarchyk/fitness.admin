@@ -1,19 +1,14 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageWorkoutPlansQuery {
+  query ManageWorkoutPlansQuery (
+    $sort: String,
+  ) {
     viewer {
-      workoutPlans {
-        edges {
-          node {
-            id
-            name
-            avatarUrl
-            createdAt
-            updatedAt
-          }
-        }
-      }
+      ...ManageWorkoutPlans_viewer
+      @arguments(
+        sort: $sort
+      )
     }
   }
 `;

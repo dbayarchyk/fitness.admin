@@ -1,19 +1,14 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageMusclesQuery {
+  query ManageMusclesQuery (
+    $sort: String,
+  ) {
     viewer {
-      muscles {
-        edges {
-          node {
-            id
-            name
-            group
-            createdAt
-            updatedAt
-          }
-        }
-      }
+      ...ManageMuscles_viewer
+      @arguments(
+        sort: $sort
+      )
     }
   }
 `;

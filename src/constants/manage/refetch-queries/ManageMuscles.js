@@ -1,11 +1,11 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageUsersQuery (
+  query ManageMusclesRefetchQuery (
     $sort: String,
   ) {
     viewer {
-      ...ManageUsers_viewer
+      ...ManageMuscles_viewer
       @arguments(
         sort: $sort
       )

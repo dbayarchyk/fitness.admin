@@ -1,19 +1,14 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageMealPlansQuery {
+  query ManageMealPlansQuery (
+    $sort: String,
+  ) {
     viewer {
-      mealPlans {
-        edges {
-          node {
-            id
-            name
-            avatarUrl
-            createdAt
-            updatedAt
-          }
-        }
-      }
+      ...ManageMealPlans_viewer
+      @arguments(
+        sort: $sort
+      )
     }
   }
 `;

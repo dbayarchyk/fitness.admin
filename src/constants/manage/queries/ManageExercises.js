@@ -1,26 +1,14 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageExercisesQuery {
+  query ManageExercisesQuery (
+    $sort: String,
+  ) {
     viewer {
-      exercises {
-        edges {
-          node {
-            id
-            name
-            avatarUrl
-            muscles {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
-            createdAt
-            updatedAt
-          }
-        }
-      }
+      ...ManageExercises_viewer
+      @arguments(
+        sort: $sort
+      )
     }
   }
 `;

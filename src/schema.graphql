@@ -504,7 +504,7 @@ type Query {
     # The ID of an object
     id: ID!
   ): Node
-  users(after: String, first: Int, before: String, last: Int): UserConnection
+  users(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): UserConnection
   viewer: Viewer
   muscles(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MuscleConnection
   exercises(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): ExerciseConnection
@@ -832,7 +832,7 @@ type Viewer implements Node {
   muscles(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MuscleConnection
   exercises(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): ExerciseConnection
   foods(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): FoodConnection
-  users(after: String, first: Int, before: String, last: Int): UserConnection
+  users(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): UserConnection
 }
 
 # ViewerUpdate input schema

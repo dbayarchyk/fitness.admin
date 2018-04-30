@@ -1,11 +1,11 @@
 import { graphql } from 'react-relay';
 
 export default graphql`
-  query ManageUsersQuery (
+  query ManageFoodsRefetchQuery (
     $sort: String,
   ) {
     viewer {
-      ...ManageUsers_viewer
+      ...ManageFoods_viewer
       @arguments(
         sort: $sort
       )
