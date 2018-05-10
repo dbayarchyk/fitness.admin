@@ -3,9 +3,10 @@ import { graphql } from 'react-relay';
 export default graphql`
   fragment ManageUsers_viewer on Viewer
     @argumentDefinitions (
-      sort: { type: "String" }
+      sort: { type: "String" },
+      name: { type: "String" }
     ) {
-      users(sort: $sort) {
+      users(sort: $sort, name: $name) {
         edges {
           node {
             id

@@ -3,9 +3,10 @@ import { graphql } from 'react-relay';
 export default graphql`
   fragment ManageExercises_viewer on Viewer
     @argumentDefinitions (
-      sort: { type: "String" }
+      sort: { type: "String" },
+      name: { type: "String" }
     ) {
-      exercises(sort: $sort) {
+      exercises(sort: $sort, name: $name) {
         edges {
           node {
             id

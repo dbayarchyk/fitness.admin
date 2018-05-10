@@ -25,6 +25,8 @@ const Manage = ({
   actionClickHandler,
   onCreateClick,
   onItemClick,
+  onSearchSubmit,
+  searchValue,
 }) => {
   const getSortIconIfNeeded = column => sort.name === column.name ? (sort.direction === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />) : null;
 
@@ -39,6 +41,8 @@ const Manage = ({
         actionClickHandler={actionClickHandler}
         onCreateClick={onCreateClick}
         onChangeSort={onChangeSort}
+        onSearchSubmit={onSearchSubmit}
+        searchValue={searchValue}
       />
 
       <Table
@@ -98,6 +102,18 @@ const Manage = ({
           }
         </TableBody>
       </Table>
+
+      {
+        !items.edges.length && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            padding: 50,
+          }}>
+            Items are not found
+          </div>
+        )
+      }
     </div>
   );
 };
@@ -136,6 +152,8 @@ Manage.propTypes = {
   selectedItemId: PropTypes.string,
   onCreateClick: PropTypes.func.isRequired,
   onChangeSort: PropTypes.func.isRequired,
+  onSearchSubmit: PropTypes.func,
+  searchValue: PropTypes.string,
 };
 
 Manage.defaultProps = {
@@ -146,6 +164,8 @@ Manage.defaultProps = {
     direction: 'asc',
   },
   selectedItemId: null,
+  onSearchSubmit: null,
+  searchValue: null,
 };
 
 export default Manage;

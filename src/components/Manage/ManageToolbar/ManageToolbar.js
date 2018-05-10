@@ -11,6 +11,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import SortIcon from 'material-ui/svg-icons/content/sort';
+import FilterListIcon from 'material-ui/svg-icons/content/filter-list';
+import MoreIcon from 'material-ui/svg-icons/navigation/more-vert';
+
+import Search from '../../framework/Search'; 
 
 const ManageToolbar = ({
   toolbarTitle,
@@ -18,13 +22,36 @@ const ManageToolbar = ({
   showToolbarActions,
   sortColumns,
   getSortIconIfNeeded,
+  searchHintText,
+  isSearchAvailable,
+  isAdvancedSearchAvailable,
   actionClickHandler,
   onCreateClick,
   onChangeSort,
+  onSearchSubmit,
+  searchValue,
 }) => (
   <Toolbar>
     <ToolbarGroup>
-      <ToolbarTitle text={toolbarTitle} />
+      <ToolbarTitle style={{ minWidth: 250 }} text={toolbarTitle} />
+
+      {
+        isSearchAvailable && (
+          <Search
+            hintText={searchHintText}
+            value={searchValue}
+            onSubmit={onSearchSubmit}
+          />
+        )
+      }
+
+      {
+        isAdvancedSearchAvailable && (
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        )
+      }
     </ToolbarGroup>
 
     <ToolbarGroup>
@@ -38,6 +65,30 @@ const ManageToolbar = ({
             {toolbarAction.icon}
           </IconButton>
         ))
+      }
+
+      {
+        showToolbarActions && toolbarActions && toolbarActions.contextMenu && (
+          <IconMenu
+            iconButtonElement={(
+              <IconButton tooltip="Context Menu">
+                <MoreIcon />
+              </IconButton>
+            )}
+            onChange={(event, action) => actionClickHandler(action)}
+          >
+            {
+              toolbarActions.contextMenu.map(toolbarAction => (
+                <MenuItem
+                  key={toolbarAction.action}
+                  value={toolbarAction.action}
+                  primaryText={toolbarAction.title}
+                  leftIcon={toolbarAction.icon}
+                />
+              ))
+            }
+          </IconMenu>
+        )
       }
 
       {
@@ -85,6 +136,13 @@ ManageToolbar.propTypes = {
         title: PropTypes.string,
       })
     ),
+    contextMenu: PropTypes.arrayOf(
+      PropTypes.shape({
+        icon: PropTypes.node.isRequired,
+        action: PropTypes.string.isRequired,
+        title: PropTypes.string,
+      })
+    ),
   }),
   showToolbarActions: PropTypes.bool,
   sortColumns: PropTypes.arrayOf(
@@ -96,13 +154,18 @@ ManageToolbar.propTypes = {
       sortDisabled: PropTypes.bool,
     })
   ).isRequired,
+  searchHintText: PropTypes.string,
+  isSearchAvailable: PropTypes.bool,
+  isAdvancedSearchAvailable: PropTypes.bool,
   getSortIconIfNeeded: PropTypes.func.isRequired,
   actionClickHandler: PropTypes.func.isRequired,
   onCreateClick: PropTypes.func.isRequired,
   onChangeSort: PropTypes.func.isRequired,
+  onSearchSubmit: PropTypes.func,
+  searchValue: PropTypes.string,
 };
 
-ManageToolbar.defaltProps = {
+ManageToolbar.defaultProps = {
   toolbarTitle: null,
   toolbarActions: null,
   sort: {
@@ -110,6 +173,11 @@ ManageToolbar.defaltProps = {
     direction: 'asc',
   },
   showToolbarActions: true,
+  searchHintText: 'Search',
+  isSearchAvailable: true,
+  isAdvancedSearchAvailable: false,
+  onSearchSubmit: null,
+  searchValue: null,
 };
 
 export default ManageToolbar;

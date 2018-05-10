@@ -10,6 +10,8 @@ import manageService from '../../services/manage.service';
 
 import Manage from './Manage';
 import DeleteModal from './DeleteModal';
+import RenameModal from './RenameModal';
+import SaveAsTemplateModal from './SaveAsTemplateModal';
 
 class ManageContainer extends Component {
   static propTypes = {
@@ -34,7 +36,7 @@ class ManageContainer extends Component {
     },
   };
 
-  deletingItemId = null;
+  itemId = null;
 
   constructor(props) {
     super(props);
@@ -46,6 +48,9 @@ class ManageContainer extends Component {
       },
       selectedItemId: null,
       isDeleteModalOpen: false,
+      searchValue: '',
+      isRenameModalOpen: false,
+      isSaveAsTemplateModalOpen: false,
     };
   }
 
@@ -67,7 +72,10 @@ class ManageContainer extends Component {
       }),
       () => {
         manageService.saveSortToLavalStorage(this.props.category, this.state.sort);
-        this.props.relay.refetch({ sort: manageService.getSortValue(this.state.sort) });
+        this.props.relay.refetch({
+          name: this.state.searchValue,
+          sort: manageService.getSortValue(this.state.sort)
+        });
       }
     );
   };
@@ -78,6 +86,11 @@ class ManageContainer extends Component {
     } else {
       throw `There is no handler specified for ${action}`;
     }
+  };
+
+  onSearchSubmit = (searchValue) => {
+    this.setState({ searchValue });
+    this.props.relay.refetch({ name: searchValue });
   };
 
   [TOOLBAR_ACTIONS.EDIT.action] = (itemId) => {
@@ -106,11 +119,36 @@ class ManageContainer extends Component {
 
   [TOOLBAR_ACTIONS.DELETE.action] = (itemdId) => {
     this.setState({ isDeleteModalOpen: true });
-    this.deletingItemId = itemdId;
+    this.itemId = itemdId;
+  };
+
+  [TOOLBAR_ACTIONS.RENAME.action] = (itemdId) => {
+    this.setState({ isRenameModalOpen: true });
+    this.itemId = itemdId;
+  };
+
+  [TOOLBAR_ACTIONS.SAVE_AS_TEMPLATE.action] = (itemdId) => {
+    this.setState({ isSaveAsTemplateModalOpen: true });
+    this.itemId = itemdId;
+  };
+
+  [TOOLBAR_ACTIONS.DUPLICATE.action] = (itemdId) => {
+    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
   };
 
   onDeleteSubmit = () => {
     this.setState({ isDeleteModalOpen: false });
+    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+  };
+
+  onRenameSubmit = () => {
+    this.setState({ isRenameModalOpen: false });
+    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+  };
+
+  onSaveAsTemplateSubmit = () => {
+    this.setState({ isSaveAsTemplateModalOpen: false });
+    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
   };
 
   create = () => {
@@ -167,12 +205,27 @@ class ManageContainer extends Component {
         onCreateClick={this.create}
         onChangeSort={this.changeSort}
         actionClickHandler={this.actionClickHandler}
+
+        onSearchSubmit={this.onSearchSubmit}
+        searchValue={this.state.searchValue}
       />,
       <DeleteModal
         key="delete-modal"
         open={this.state.isDeleteModalOpen}
         onRequestClose={() => this.setState({ isDeleteModalOpen: false })}
         onSubmit={this.onDeleteSubmit}
+      />,
+      <RenameModal
+        key="rename-modal"
+        open={this.state.isRenameModalOpen}
+        onRequestClose={() => this.setState({ isRenameModalOpen: false })}
+        onSubmit={this.onRenameSubmit}
+      />,
+      <SaveAsTemplateModal
+        key="save-as-template-modal"
+        open={this.state.isSaveAsTemplateModalOpen}
+        onRequestClose={() => this.setState({ isSaveAsTemplateModalOpen: false })}
+        onSubmit={this.onSaveAsTemplateSubmit}
       />
     ];
   }
