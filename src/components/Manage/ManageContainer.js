@@ -141,9 +141,12 @@ class ManageContainer extends Component {
     alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
   };
 
-  onRenameSubmit = () => {
+  onRenameSubmit = (name) => {
     this.setState({ isRenameModalOpen: false });
-    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+
+    let item = manageService.getItemById(this.props.category, this.props.viewer, this.itemId);
+
+    manageService.updateItemById(this.props.category, item.id, { name }, this.props.viewer);
   };
 
   onSaveAsTemplateSubmit = () => {
@@ -190,6 +193,7 @@ class ManageContainer extends Component {
 
   render() {
     const { category, viewer } = this.props;
+    const selectedItem = manageService.getItemById(category, viewer, this.itemId);
 
     return [
       <Manage
@@ -217,6 +221,7 @@ class ManageContainer extends Component {
       />,
       <RenameModal
         key="rename-modal"
+        name={selectedItem && selectedItem.name || ''}
         open={this.state.isRenameModalOpen}
         onRequestClose={() => this.setState({ isRenameModalOpen: false })}
         onSubmit={this.onRenameSubmit}

@@ -6,6 +6,7 @@ export default graphql`
       sort: { type: "String" },
       name: { type: "String" }
     ) {
+      id
       foods(sort: $sort, name: $name) {
         edges {
           node {

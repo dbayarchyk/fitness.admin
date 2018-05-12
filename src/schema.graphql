@@ -190,6 +190,19 @@ input ExerciseInput {
   updatedAt: String
 }
 
+# ExerciseUpdate input schema
+input ExerciseUpdateInput {
+  name: String
+  avatarUrl: String
+  photos: [String]
+  muscles: [String]
+  description: String
+  complexity: Int
+  videoUrl: String
+  createdAt: String
+  updatedAt: String
+}
+
 # Feed schema
 type Feed {
   # The ID of an object
@@ -327,6 +340,19 @@ input FoodIntakeInput {
   date: String
 }
 
+# Food Update input schema
+input FoodUpdateInput {
+  name: String
+  category: String
+  avatarUrl: String
+  calorificValue: Float
+  proteins: Float
+  carbohydrates: Float
+  fats: Float
+  createdAt: String
+  updatedAt: String
+}
+
 type LoginPayload {
   # Auth token
   token: String!
@@ -400,6 +426,15 @@ input MealPlanInput {
   updatedAt: String
 }
 
+# MealPlan update input schema
+input MealPlanUpdateInput {
+  name: String
+  avatarUrl: String
+  meals: [MealInput]
+  createdAt: String
+  updatedAt: String
+}
+
 # Muscle schema
 type Muscle implements Node {
   # The ID of an object
@@ -432,6 +467,14 @@ type MuscleEdge {
 input MuscleInput {
   name: String!
   group: String!
+  createdAt: String
+  updatedAt: String
+}
+
+# Muscle update input schema
+input MuscleUpdateInput {
+  name: String
+  group: String
   createdAt: String
   updatedAt: String
 }
@@ -646,7 +689,7 @@ type UpdateCompletedWorkoutPayload {
 
 input UpdateExerciseInput {
   id: String!
-  data: ExerciseInput!
+  data: ExerciseUpdateInput!
   clientMutationId: String
 }
 
@@ -657,7 +700,7 @@ type UpdateExercisePayload {
 
 input UpdateFoodInput {
   id: String!
-  data: FoodInput!
+  data: FoodUpdateInput!
   clientMutationId: String
 }
 
@@ -679,7 +722,7 @@ type UpdateFoodPayload {
 
 input UpdateMealPlanInput {
   id: String!
-  data: MealPlanInput!
+  data: MealPlanUpdateInput!
   clientMutationId: String
 }
 
@@ -690,7 +733,7 @@ type UpdateMealPlanPayload {
 
 input UpdateMuscleInput {
   id: String!
-  data: MuscleInput!
+  data: MuscleUpdateInput!
   clientMutationId: String
 }
 
@@ -723,7 +766,7 @@ type UpdateViewerPayload {
 
 input UpdateWorkoutPlanInput {
   id: String!
-  data: WorkoutPlanInput!
+  data: WorkoutPlanUpdateInput!
   clientMutationId: String
 }
 
@@ -940,6 +983,16 @@ type WorkoutPlanEdge {
 # WorkoutPlan input schema
 input WorkoutPlanInput {
   name: String!
+  avatarUrl: String
+  gender: String
+  isPrivate: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+# WorkoutPlan update input schema
+input WorkoutPlanUpdateInput {
+  name: String
   avatarUrl: String
   gender: String
   isPrivate: Boolean

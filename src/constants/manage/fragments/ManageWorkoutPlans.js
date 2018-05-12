@@ -6,6 +6,7 @@ export default graphql`
       sort: { type: "String" },
       name: { type: "String" }
     ) {
+      id
       workoutPlans(sort: $sort, name: $name) {
         edges {
           node {

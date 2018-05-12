@@ -5,6 +5,9 @@ import {
 
 import Environment from '../Environment';
 
+import CATEGORY from '../constants/manage/category';
+import CONNECTIONS from '../constants/manage/connections';
+
 const mutation = graphql`
   mutation UpdateExerciseMutation ($input: UpdateExerciseInput!) {
     updateExercise(input: $input) {
@@ -13,6 +16,16 @@ const mutation = graphql`
         node {
           id
           name
+          avatarUrl
+          muscles {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+          createdAt
+          updatedAt
         }
       }
     }
