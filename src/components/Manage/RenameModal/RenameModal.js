@@ -37,7 +37,6 @@ class RenameModal extends Component {
       open,
       onRequestClose,
       onSubmit,
-      description,
     } = this.props;
 
     return (

@@ -28,7 +28,6 @@ class WorkoutPlanBuilderService {
     date = moment(date);
 
     const { node: lastWorkoutOfTheDay } = _.last(_.filter(workouts.edges, ({ node: workout }) => moment(workout.date) >= startDate && moment(workout.date) < endDate));
-    const newdate = moment(lastWorkoutOfTheDay.date).add(2, 'hours').toString();
 
     return {
       ...workouts,

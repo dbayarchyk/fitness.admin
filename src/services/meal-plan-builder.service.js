@@ -16,7 +16,6 @@ class MealPlanBuilderService {
     date = moment(date);
 
     const { node: lastMealOfTheDay } = _.last(_.filter(meals.edges, ({ node: meal }) => moment(meal.date) >= startDate && moment(meal.date) < endDate));
-    const newdate = moment(lastMealOfTheDay.date).add(2, 'hours').toString();
 
     return {
       ...meals,

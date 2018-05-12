@@ -82,7 +82,7 @@ class ManageContainer extends Component {
     if (_.isFunction(this[action])) {
       this[action](this.state.selectedItemId);
     } else {
-      throw `There is no handler specified for ${action}`;
+      throw new Error(`There is no handler specified for ${action}`);
     }
   };
 
@@ -110,6 +110,8 @@ class ManageContainer extends Component {
       case CATEGORY.WORKOUT_PLANS.type:
         link = `/workout-plan-builder/${itemId}`;
         break;
+      default:
+        throw new Error(`There is no ${TOOLBAR_ACTIONS.EDIT.action} handler for ${this.props.category}`);
     }
 
     this.props.history.push(link);
@@ -140,8 +142,6 @@ class ManageContainer extends Component {
   onRenameSubmit = (name) => {
     this.setState({ isRenameModalOpen: false });
 
-    let item = manageService.getItemById(this.props.category, this.props.viewer, this.state.selectedItemId);
-
     manageService.updateItemById(this.props.category, this.state.selectedItemId, { name }, this.props.viewer);
   };
 
@@ -169,6 +169,8 @@ class ManageContainer extends Component {
       case CATEGORY.WORKOUT_PLANS.type:
         link = '/workout-plan-builder';
         break;
+      default:
+        throw new Error(`There is no create handler for ${this.props.category}`);
     }
 
     this.props.history.push(link);

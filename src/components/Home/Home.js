@@ -22,7 +22,7 @@ class Home extends Component {
   toggleNavBar = () => this.setState(prevState => ({ isNavBarOpen: !prevState.isNavBarOpen }));
 
   render() {
-    const { navItems, children } = this.props;
+    const { children } = this.props;
 
     const header = (
       <AppBar
