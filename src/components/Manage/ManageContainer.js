@@ -36,8 +36,6 @@ class ManageContainer extends Component {
     },
   };
 
-  itemId = null;
-
   constructor(props) {
     super(props);
 
@@ -119,17 +117,14 @@ class ManageContainer extends Component {
 
   [TOOLBAR_ACTIONS.DELETE.action] = (itemdId) => {
     this.setState({ isDeleteModalOpen: true });
-    this.itemId = itemdId;
   };
 
   [TOOLBAR_ACTIONS.RENAME.action] = (itemdId) => {
     this.setState({ isRenameModalOpen: true });
-    this.itemId = itemdId;
   };
 
   [TOOLBAR_ACTIONS.SAVE_AS_TEMPLATE.action] = (itemdId) => {
     this.setState({ isSaveAsTemplateModalOpen: true });
-    this.itemId = itemdId;
   };
 
   [TOOLBAR_ACTIONS.DUPLICATE.action] = (itemdId) => {
@@ -138,15 +133,16 @@ class ManageContainer extends Component {
 
   onDeleteSubmit = () => {
     this.setState({ isDeleteModalOpen: false });
-    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+
+    manageService.removeItemById(this.props.category, this.state.selectedItemId, this.props.viewer);
   };
 
   onRenameSubmit = (name) => {
     this.setState({ isRenameModalOpen: false });
 
-    let item = manageService.getItemById(this.props.category, this.props.viewer, this.itemId);
+    let item = manageService.getItemById(this.props.category, this.props.viewer, this.state.selectedItemId);
 
-    manageService.updateItemById(this.props.category, item.id, { name }, this.props.viewer);
+    manageService.updateItemById(this.props.category, this.state.selectedItemId, { name }, this.props.viewer);
   };
 
   onSaveAsTemplateSubmit = () => {
@@ -193,7 +189,7 @@ class ManageContainer extends Component {
 
   render() {
     const { category, viewer } = this.props;
-    const selectedItem = manageService.getItemById(category, viewer, this.itemId);
+    const selectedItem = manageService.getItemById(category, viewer, this.state.selectedItemId);
 
     return [
       <Manage
@@ -221,7 +217,7 @@ class ManageContainer extends Component {
       />,
       <RenameModal
         key="rename-modal"
-        name={selectedItem && selectedItem.name || ''}
+        name={selectedItem ? selectedItem.name : ''}
         open={this.state.isRenameModalOpen}
         onRequestClose={() => this.setState({ isRenameModalOpen: false })}
         onSubmit={this.onRenameSubmit}

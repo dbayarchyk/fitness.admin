@@ -13,6 +13,12 @@ import UpdateFood from '../mutations/UpdateFood';
 import UpdateMealPlan from '../mutations/UpdateMealPlan';
 import UpdateWorkoutPlan from '../mutations/UpdateWorkoutPlan';
 
+import RemoveExercise from '../mutations/RemoveExercise';
+import RemoveMuscle from '../mutations/RemoveMuscle';
+import RemoveFood from '../mutations/RemoveFood';
+import RemoveMealPlan from '../mutations/RemoveMealPlan';
+import RemoveWorkoutPlan from '../mutations/RemoveWorkoutPlan';
+
 class ManageService {
   getQuery(category) {
     return QUERIES[category];
@@ -90,6 +96,24 @@ class ManageService {
     }
 
     return RenameMutation(id, data, viewer);
+  }
+
+  removeItemById(category, id, viewer) {
+    const mutationsByCategory = {
+      [CATEGORY.MUSCLES.type]: RemoveMuscle,
+      [CATEGORY.EXERCISES.type]: RemoveExercise,
+      [CATEGORY.FOODS.type]: RemoveFood,
+      [CATEGORY.MEAL_PLANS.type]: RemoveMealPlan,
+      [CATEGORY.WORKOUT_PLANS.type]: RemoveWorkoutPlan,
+    };
+
+    const RemoveMutation = mutationsByCategory[category];
+
+    if (!RemoveMutation) {
+      throw new Error(`Raname mutation is not supported for ${category}`);
+    }
+
+    return RemoveMutation(id, viewer);
   }
 }
 
