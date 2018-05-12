@@ -7,7 +7,12 @@ export default graphql`
       name: { type: "String" }
     ) {
       id
-      users(sort: $sort, name: $name) {
+      users(
+        first: 2147483647,  # max GraphQLInt
+        sort: $sort,
+        name: $name
+      )
+      @connection(key: "ManageUsers_users", filters: []) {
         edges {
           node {
             id

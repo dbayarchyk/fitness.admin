@@ -7,7 +7,12 @@ export default graphql`
       name: { type: "String" }
     ) {
       id
-      workoutPlans(sort: $sort, name: $name) {
+      workoutPlans(
+        first: 2147483647,  # max GraphQLInt
+        sort: $sort,
+        name: $name
+      )
+      @connection(key: "ManageWorkoutPlans_workoutPlans", filters: []) {
         edges {
           node {
             id

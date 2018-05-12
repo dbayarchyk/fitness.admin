@@ -2,12 +2,17 @@ import { graphql } from 'react-relay';
 
 export default graphql`
   fragment ManageMuscles_viewer on Viewer
-    @argumentDefinitions (
-      sort: { type: "String" },
-      name: { type: "String" }
-    ) {
+  @argumentDefinitions (
+    sort: { type: "String" },
+    name: { type: "String" }
+  ) {
       id
-      muscles(sort: $sort, name: $name) {
+      muscles(
+        first: 2147483647,  # max GraphQLInt
+        sort: $sort,
+        name: $name
+      )
+      @connection(key: "ManageMuscles_muscles", filters: []) {
         edges {
           node {
             id

@@ -2,8 +2,23 @@ import {
   commitMutation,
   graphql,
 } from 'react-relay';
+import { ConnectionHandler } from 'relay-runtime';
 
 import Environment from '../Environment';
+
+const sharedUpdater = (store, viewer, removedFood) => {
+  const viewerProxy = store.get(viewer.id);
+
+  const conn = ConnectionHandler.getConnection(
+    viewerProxy,
+    'ManageFoods_foods',
+  );
+
+  ConnectionHandler.deleteNode(
+    conn,
+    removedFood.getValue('id'),
+  );
+};
 
 const mutation = graphql`
   mutation RemoveFoodMutation ($input: RemoveFoodInput!) {
@@ -27,6 +42,11 @@ const RemoveFoodMutation = (foodId, viewer) => {
     commitMutation(Environment, {
       mutation,
       variables,
+      updater: (store) => {
+        const payload = store.getRootField('removeFood');
+
+        sharedUpdater(store, viewer, payload.getLinkedRecord('removedFood'));
+      },
       onCompleted: (response, errors) => {
         resolve(response);
       },

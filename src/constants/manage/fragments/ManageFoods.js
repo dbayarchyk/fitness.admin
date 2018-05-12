@@ -7,7 +7,12 @@ export default graphql`
       name: { type: "String" }
     ) {
       id
-      foods(sort: $sort, name: $name) {
+      foods(
+        first: 2147483647,  # max GraphQLInt
+        sort: $sort,
+        name: $name
+      )
+      @connection(key: "ManageFoods_foods", filters: []) {
         edges {
           node {
             id

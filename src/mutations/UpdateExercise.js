@@ -2,11 +2,9 @@ import {
   commitMutation,
   graphql,
 } from 'react-relay';
+import { ConnectionHandler } from 'relay-runtime';
 
 import Environment from '../Environment';
-
-import CATEGORY from '../constants/manage/category';
-import CONNECTIONS from '../constants/manage/connections';
 
 const mutation = graphql`
   mutation UpdateExerciseMutation ($input: UpdateExerciseInput!) {
