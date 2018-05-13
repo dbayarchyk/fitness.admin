@@ -5,7 +5,6 @@ import { graphql, QueryRenderer } from 'react-relay';
 import Environment from '../Environment';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
-import ErrorMessage from '../components/framework/ErrorMessage';
 
 import FoodBuilderView from '../components/FoodBuilder';
 
