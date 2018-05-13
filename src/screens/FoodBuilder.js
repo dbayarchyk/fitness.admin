@@ -5,6 +5,7 @@ import { graphql, QueryRenderer } from 'react-relay';
 import Environment from '../Environment';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
+import ErrorMessage from '../components/framework/ErrorMessage';
 
 import FoodBuilderView from '../components/FoodBuilder';
 
@@ -38,8 +39,10 @@ class FoodBuilder extends Component {
           skipFetchFood: !id,
         }}
         render={({ error, props }) => {
-          if (error) {
+          if (error && !error.errors) {
             return <div>{error.message}</div>;
+          } if (error && error.errors.length) {
+            return error.errors.map(err => <div>{err.message}</div>)
           } else if (props) {
             if (!props.viewer) {
               return <div>Food not found.</div>;

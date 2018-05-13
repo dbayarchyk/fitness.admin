@@ -8,6 +8,7 @@ import manageRefetchContainer from '../hoc/manage-refetch-container';
 import manageService from '../services/manage.service';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
+import ErrorMessage from '../components/framework/ErrorMessage';
 
 import ManageView from '../components/Manage';
 
@@ -31,9 +32,11 @@ class Manage extends Component {
         variables={{
           sort: manageService.getSortValue(defaultSort),
         }}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>{error.message}</div>;
+        render={({ error, props }) => {      
+          if (error && !error.errors) {
+            return <ErrorMessage {...error} />;
+          } if (error && error.errors.length) {
+            return error.errors.map(err => <ErrorMessage {...err} />)
           } else if (props) {
             const ManageRefetchContainer = manageRefetchContainer(ManageView, category);
 

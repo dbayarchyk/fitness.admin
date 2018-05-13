@@ -48,7 +48,11 @@ const RemoveExerciseMutation = (exerciseId, viewer) => {
         sharedUpdater(store, viewer, payload.getLinkedRecord('removedExercise'));
       },
       onCompleted: (response, errors) => {
-        resolve(response);
+        if (errors && errors.length) {
+          reject(errors);
+        } else {
+          resolve(response);
+        }
       },
       onError: err => reject(err),
     });

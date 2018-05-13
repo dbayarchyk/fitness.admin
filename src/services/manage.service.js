@@ -95,7 +95,12 @@ class ManageService {
       throw new Error(`Raname mutation is not supported for ${category}`);
     }
 
-    return RenameMutation(id, data, viewer);
+    return RenameMutation(id, data, viewer)
+            .catch((err) => {
+              if (err && err.errors) {
+                err.errors.forEach(error => alert(error.message));
+              }
+            });
   }
 
   removeItemById(category, id, viewer) {
@@ -113,7 +118,12 @@ class ManageService {
       throw new Error(`Raname mutation is not supported for ${category}`);
     }
 
-    return RemoveMutation(id, viewer);
+    return RemoveMutation(id, viewer)
+            .catch((err) => {
+              if (err && err.errors) {
+                err.errors.forEach(error => alert(error.message));
+              }
+            });
   }
 }
 

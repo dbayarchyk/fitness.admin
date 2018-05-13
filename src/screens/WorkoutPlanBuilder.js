@@ -5,6 +5,7 @@ import { graphql, QueryRenderer } from 'react-relay';
 import Environment from '../Environment';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
+import ErrorMessage from '../components/framework/ErrorMessage';
 
 import WorkoutPlanBuilderView from '../components/WorkoutPlanBuilder';
 
@@ -38,8 +39,10 @@ class WorkoutPlanBuilder extends Component {
           skipFetchWorkoutPlan: !id,
         }}
         render={({ error, props }) => {
-          if (error) {
-            return <div>{error.message}</div>;
+          if (error && !error.errors) {
+            return <ErrorMessage {...error} />;
+          } if (error && error.errors.length) {
+            return error.errors.map(err => <ErrorMessage {...err} />)
           } else if (props) {
             if (!props.viewer) {
               return <div>WorkoutPlan not found.</div>;

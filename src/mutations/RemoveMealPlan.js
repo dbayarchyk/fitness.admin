@@ -48,7 +48,11 @@ const RemoveMealPlanMutation = (mealPlanId, viewer) => {
         sharedUpdater(store, viewer, payload.getLinkedRecord('removedMealPlan'));
       },
       onCompleted: (response, errors) => {
-        resolve(response);
+        if (errors && errors.length) {
+          reject(errors);
+        } else {
+          resolve(response);
+        }
       },
       onError: err => reject(err),
     });

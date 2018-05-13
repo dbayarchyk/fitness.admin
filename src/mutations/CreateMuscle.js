@@ -33,7 +33,11 @@ const CreateMuscleMutation = (data, viewer) => {
       mutation,
       variables,
       onCompleted: (response, errors) => {
-        resolve(response);
+        if (errors && errors.length) {
+          reject(errors);
+        } else {
+          resolve(response);
+        }
       },
       onError: err => reject(err),
     });

@@ -10,7 +10,7 @@ import CONFIG from './config';
 const store = new Store(new RecordSource());
 
 const network = Network.create((operation, variables) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const token = localStorage.getItem(CONFIG.AUTH_TOKEN);
 
     const headers = {
@@ -31,7 +31,13 @@ const network = Network.create((operation, variables) => {
       }),
     })
       .then(response => response.json())
-      .then(res => resolve(res));
+      .then((res) => {
+        if (res.errors) {
+          reject(res);
+        } else {
+          resolve(res);
+        }
+      });
   });
 });
 

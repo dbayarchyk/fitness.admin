@@ -192,7 +192,7 @@ class ManageContainer extends Component {
   render() {
     const { category, viewer } = this.props;
     const selectedItem = manageService.getItemById(category, viewer, this.state.selectedItemId);
-
+    
     return [
       <Manage
         key="view"
