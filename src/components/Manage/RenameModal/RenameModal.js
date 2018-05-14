@@ -54,6 +54,7 @@ class RenameModal extends Component {
             label="Rename"
             primary
             onClick={() => onSubmit(this.state.name)}
+            disabled={!(this.state.name && this.state.name.length)}
           />,
         ]}
       >

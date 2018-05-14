@@ -52,6 +52,7 @@ class SaveAsTemplateModal extends Component {
             label="Save"
             primary
             onClick={this.onSubmit}
+            disabled={!(this.state.name && this.state.name.length)}
           />,
         ]}
       >

@@ -15,7 +15,6 @@ const NavBar = ({ onNavItemClicked }) => {
       {...listItemProps}
       onClick={() => onNavItemClicked(to)}
       containerElement={to && <Link to={to} />}
-      rightIcon={<FiberNewIcon />}
     />
   );
 
@@ -42,7 +41,9 @@ const NavBar = ({ onNavItemClicked }) => {
           <NavItem primaryText="Exercises" to={`/manage/${MANAGE_CATEGORY.EXERCISES.type}`} />,
           <NavItem primaryText="Foods" to={`/manage/${MANAGE_CATEGORY.FOODS.type}`} />,
           <NavItem primaryText="Meal Plans" to={`/manage/${MANAGE_CATEGORY.MEAL_PLANS.type}`} />,
+          <NavItem primaryText="Meal Plan Templates" to={`/manage/${MANAGE_CATEGORY.MEAL_PLAN_TEMPLATES.type}`} />,
           <NavItem primaryText="Workout Plans" to={`/manage/${MANAGE_CATEGORY.WORKOUT_PLANS.type}`} />,
+          <NavItem primaryText="Workout Plan Templates" to={`/manage/${MANAGE_CATEGORY.WORKOUT_PLAN_TEMPLATES.type}`} />,
           <NavItem primaryText="Users" to={`/manage/${MANAGE_CATEGORY.USERS.type}`} />,
         ]}
       />

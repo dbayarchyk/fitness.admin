@@ -147,9 +147,10 @@ class ManageContainer extends Component {
     manageService.updateItemById(this.props.category, this.state.selectedItemId, { name }, this.props.viewer);
   };
 
-  onSaveAsTemplateSubmit = () => {
+  onSaveAsTemplateSubmit = (templateName) => {
     this.setState({ isSaveAsTemplateModalOpen: false });
-    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+    
+    manageService.saveItemAsTemplate(this.props.category, this.state.selectedItemId, templateName, this.props.viewer);
   };
 
   create = () => {

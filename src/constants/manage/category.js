@@ -19,8 +19,16 @@ export default {
     type: 'mealPlans',
     title: 'Meal Plans',
   },
+  MEAL_PLAN_TEMPLATES: {
+    type: 'mealPlanTemplates',
+    title: 'Meal Plan Templates',
+  },
   WORKOUT_PLANS: {
     type: 'workoutPlans',
     title: 'Workout Plans',
+  },
+  WORKOUT_PLAN_TEMPLATES: {
+    type: 'workoutPlanTemplates',
+    title: 'Workout Plan Templates',
   },
 };

@@ -12,18 +12,27 @@ import UpdateMuscle from '../mutations/UpdateMuscle';
 import UpdateFood from '../mutations/UpdateFood';
 import UpdateMealPlan from '../mutations/UpdateMealPlan';
 import UpdateWorkoutPlan from '../mutations/UpdateWorkoutPlan';
+import UpdateMealPlanTemplate from '../mutations/UpdateMealPlanTemplate';
+import UpdateWorkoutPlanTemplate from '../mutations/UpdateWorkoutPlanTemplate';
 
 import RemoveExercise from '../mutations/RemoveExercise';
 import RemoveMuscle from '../mutations/RemoveMuscle';
 import RemoveFood from '../mutations/RemoveFood';
 import RemoveMealPlan from '../mutations/RemoveMealPlan';
 import RemoveWorkoutPlan from '../mutations/RemoveWorkoutPlan';
+import RemoveMealPlanTemplate from '../mutations/RemoveMealPlanTemplate';
+import RemoveWorkoutPlanTemplate from '../mutations/RemoveWorkoutPlanTemplate';
 
 import CopyExercise from '../mutations/CopyExercise';
 import CopyMuscle from '../mutations/CopyMuscle';
 import CopyFood from '../mutations/CopyFood';
 import CopyMealPlan from '../mutations/CopyMealPlan';
 import CopyWorkoutPlan from '../mutations/CopyWorkoutPlan';
+import CopyMealPlanTemplate from '../mutations/CopyMealPlanTemplate';
+import CopyWorkoutPlanTemplate from '../mutations/CopyWorkoutPlanTemplate';
+
+import SaveMealPlanAsTemplate from '../mutations/SaveMealPlanAsTemplate';
+import SaveWorkoutPlanAsTemplate from '../mutations/SaveWorkoutPlanAsTemplate';
 
 class ManageService {
   getQuery(category) {
@@ -99,6 +108,8 @@ class ManageService {
       [CATEGORY.FOODS.type]: UpdateFood,
       [CATEGORY.MEAL_PLANS.type]: UpdateMealPlan,
       [CATEGORY.WORKOUT_PLANS.type]: UpdateWorkoutPlan,
+      [CATEGORY.MEAL_PLAN_TEMPLATES.type]: UpdateMealPlanTemplate,
+      [CATEGORY.WORKOUT_PLAN_TEMPLATES.type]: UpdateWorkoutPlanTemplate,
     };
 
     const RenameMutation = mutationsByCategory[category];
@@ -122,6 +133,8 @@ class ManageService {
       [CATEGORY.FOODS.type]: RemoveFood,
       [CATEGORY.MEAL_PLANS.type]: RemoveMealPlan,
       [CATEGORY.WORKOUT_PLANS.type]: RemoveWorkoutPlan,
+      [CATEGORY.MEAL_PLAN_TEMPLATES.type]: RemoveMealPlanTemplate,
+      [CATEGORY.WORKOUT_PLAN_TEMPLATES.type]: RemoveWorkoutPlanTemplate,
     };
 
     const RemoveMutation = mutationsByCategory[category];
@@ -145,6 +158,8 @@ class ManageService {
       [CATEGORY.FOODS.type]: CopyFood,
       [CATEGORY.MEAL_PLANS.type]: CopyMealPlan,
       [CATEGORY.WORKOUT_PLANS.type]: CopyWorkoutPlan,
+      [CATEGORY.MEAL_PLAN_TEMPLATES.type]: CopyMealPlanTemplate,
+      [CATEGORY.WORKOUT_PLAN_TEMPLATES.type]: CopyWorkoutPlanTemplate,
     };
 
     const CopyMutation = mutationsByCategory[category];
@@ -154,6 +169,27 @@ class ManageService {
     }
 
     return CopyMutation(id, viewer, insertAfter)
+            .catch((err) => {
+              if (err && err.errors) {
+                err.errors.forEach(error => alert(error.message));
+              }
+            });
+  }
+
+  saveItemAsTemplate(category, id, templateName, viewer) {
+    const mutationsByCategory = {
+      [CATEGORY.MEAL_PLANS.type]: SaveMealPlanAsTemplate,
+      [CATEGORY.WORKOUT_PLANS.type]: SaveWorkoutPlanAsTemplate,
+    };
+
+    const SaveAsTemplateMutation = mutationsByCategory[category];
+
+    if (!SaveAsTemplateMutation) {
+      throw new Error(`Copy mutation is not supported for ${category}`);
+    }
+
+    return SaveAsTemplateMutation(id, templateName, viewer)
+            .then(() => alert('Saved'))
             .catch((err) => {
               if (err && err.errors) {
                 err.errors.forEach(error => alert(error.message));

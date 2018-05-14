@@ -173,7 +173,55 @@ const COLUMNS = {
       defaultDirection: 'desc',
     },
   },
+  [CATEGORY.MEAL_PLAN_TEMPLATES.type]: {
+    AVATAR: {
+      name: 'avatarUrl',
+      title: 'Avatar',
+      filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
+    },
+    NAME: {
+      name: 'name',
+      title: 'Name',
+    },
+    CREATED_DATE: {
+      name: 'createdAt',
+      title: 'Created Date',
+      filter: dateFilter,
+      defaultDirection: 'desc',
+    },
+    UPDATED_DATE: {
+      name: 'updatedAt',
+      title: 'Updated Date',
+      filter: dateFilter,
+      defaultDirection: 'desc',
+    },
+  },
   [CATEGORY.WORKOUT_PLANS.type]: {
+    AVATAR: {
+      name: 'avatarUrl',
+      title: 'Avatar',
+      filter: avatarUrl => <Avatar src={avatarUrl} />,
+      sortDisabled: true,
+    },
+    NAME: {
+      name: 'name',
+      title: 'Name',
+    },
+    CREATED_DATE: {
+      name: 'createdAt',
+      title: 'Created Date',
+      filter: dateFilter,
+      defaultDirection: 'desc',
+    },
+    UPDATED_DATE: {
+      name: 'updatedAt',
+      title: 'Updated Date',
+      filter: dateFilter,
+      defaultDirection: 'desc',
+    },
+  },
+  [CATEGORY.WORKOUT_PLAN_TEMPLATES.type]: {
     AVATAR: {
       name: 'avatarUrl',
       title: 'Avatar',

@@ -59,11 +59,29 @@ export default {
       SAVE_AS_TEMPLATE,
     ],
   },
+  [CATEGORY.MEAL_PLAN_TEMPLATES.type]: {
+    left: [
+      RENAME,
+      DELETE,
+    ],
+    contextMenu: [
+      DUPLICATE,
+    ],
+  },
   [CATEGORY.WORKOUT_PLANS.type]: {
     ...DEFAULT_TOOLBAR_ACTIONS,
     contextMenu: [
       ...DEFAULT_TOOLBAR_ACTIONS.contextMenu,
       SAVE_AS_TEMPLATE,
     ],
+  },
+  [CATEGORY.WORKOUT_PLAN_TEMPLATES.type]: {
+    left: [
+      RENAME,
+      DELETE,
+    ],
+    contextMenu: [
+      DUPLICATE,
+    ], 
   },
 };
