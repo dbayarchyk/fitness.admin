@@ -14,6 +14,7 @@ export default graphql`
       )
       @connection(key: "ManageUsers_users", filters: []) {
         edges {
+          cursor
           node {
             id
             name

@@ -19,6 +19,12 @@ import RemoveFood from '../mutations/RemoveFood';
 import RemoveMealPlan from '../mutations/RemoveMealPlan';
 import RemoveWorkoutPlan from '../mutations/RemoveWorkoutPlan';
 
+import CopyExercise from '../mutations/CopyExercise';
+import CopyMuscle from '../mutations/CopyMuscle';
+import CopyFood from '../mutations/CopyFood';
+import CopyMealPlan from '../mutations/CopyMealPlan';
+import CopyWorkoutPlan from '../mutations/CopyWorkoutPlan';
+
 class ManageService {
   getQuery(category) {
     return QUERIES[category];
@@ -56,10 +62,16 @@ class ManageService {
     return items;
   }
 
-  getItemById(category, viewer, id) {
+  getEdgeByItemId(category, viewer, id) {
     const items = this.getItems(category, viewer);
 
-    return _.find(_.map(items.edges, 'node'), ['id', id]);
+    return _.find(items.edges, ({ node }) => node.id === id);
+  }
+
+  getItemById(category, viewer, id) {
+    const selectedEdge = this.getEdgeByItemId(category, viewer, id);
+
+    return selectedEdge ? selectedEdge.node : null;
   }
 
   getSortValue(sort) {
@@ -119,6 +131,29 @@ class ManageService {
     }
 
     return RemoveMutation(id, viewer)
+            .catch((err) => {
+              if (err && err.errors) {
+                err.errors.forEach(error => alert(error.message));
+              }
+            });
+  }
+
+  copyItemById(category, id, viewer, insertAfter) {
+    const mutationsByCategory = {
+      [CATEGORY.MUSCLES.type]: CopyMuscle,
+      [CATEGORY.EXERCISES.type]: CopyExercise,
+      [CATEGORY.FOODS.type]: CopyFood,
+      [CATEGORY.MEAL_PLANS.type]: CopyMealPlan,
+      [CATEGORY.WORKOUT_PLANS.type]: CopyWorkoutPlan,
+    };
+
+    const CopyMutation = mutationsByCategory[category];
+
+    if (!CopyMutation) {
+      throw new Error(`Copy mutation is not supported for ${category}`);
+    }
+
+    return CopyMutation(id, viewer, insertAfter)
             .catch((err) => {
               if (err && err.errors) {
                 err.errors.forEach(error => alert(error.message));

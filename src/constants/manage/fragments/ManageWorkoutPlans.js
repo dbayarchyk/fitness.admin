@@ -14,6 +14,7 @@ export default graphql`
       )
       @connection(key: "ManageWorkoutPlans_workoutPlans", filters: []) {
         edges {
+          cursor
           node {
             id
             name

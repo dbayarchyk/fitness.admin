@@ -43,6 +43,7 @@ const NavBar = ({ onNavItemClicked }) => {
           <NavItem primaryText="Foods" to={`/manage/${MANAGE_CATEGORY.FOODS.type}`} />,
           <NavItem primaryText="Meal Plans" to={`/manage/${MANAGE_CATEGORY.MEAL_PLANS.type}`} />,
           <NavItem primaryText="Workout Plans" to={`/manage/${MANAGE_CATEGORY.WORKOUT_PLANS.type}`} />,
+          <NavItem primaryText="Users" to={`/manage/${MANAGE_CATEGORY.USERS.type}`} />,
         ]}
       />
     </List>

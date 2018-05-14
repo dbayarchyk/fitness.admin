@@ -14,6 +14,7 @@ export default graphql`
       )
       @connection(key: "ManageFoods_foods", filters: []) {
         edges {
+          cursor
           node {
             id
             name

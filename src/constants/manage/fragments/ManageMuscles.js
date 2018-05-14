@@ -14,6 +14,7 @@ export default graphql`
       )
       @connection(key: "ManageMuscles_muscles", filters: []) {
         edges {
+          cursor
           node {
             id
             name

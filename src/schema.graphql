@@ -34,6 +34,56 @@ input CompletedWorkoutInput {
   updatedAt: String
 }
 
+input CopyExerciseInput {
+  id: String!
+  clientMutationId: String
+}
+
+type CopyExercisePayload {
+  copiedExerciseEdge: ExerciseEdge
+  clientMutationId: String
+}
+
+input CopyFoodInput {
+  id: String!
+  clientMutationId: String
+}
+
+type CopyFoodPayload {
+  copiedFoodEdge: FoodEdge
+  clientMutationId: String
+}
+
+input CopyMealPlanInput {
+  id: String!
+  clientMutationId: String
+}
+
+type CopyMealPlanPayload {
+  copiedMealPlanEdge: MealPlanEdge
+  clientMutationId: String
+}
+
+input CopyMuscleInput {
+  id: String!
+  clientMutationId: String
+}
+
+type CopyMusclePayload {
+  copiedMuscleEdge: MuscleEdge
+  clientMutationId: String
+}
+
+input CopyWorkoutPlanInput {
+  id: String!
+  clientMutationId: String
+}
+
+type CopyWorkoutPlanPayload {
+  copiedWorkoutPlanEdge: WorkoutPlanEdge
+  clientMutationId: String
+}
+
 input CreateCompletedWorkoutInput {
   data: CompletedWorkoutInput!
   clientMutationId: String
@@ -498,18 +548,23 @@ type Mutation {
   removeMuscle(input: RemoveMuscleInput!): RemoveMusclePayload
   createMuscle(input: CreateMuscleInput!): CreateMusclePayload
   updateMuscle(input: UpdateMuscleInput!): UpdateMusclePayload
+  copyMuscle(input: CopyMuscleInput!): CopyMusclePayload
   removeExercise(input: RemoveExerciseInput!): RemoveExercisePayload
   createExercise(input: CreateExerciseInput!): CreateExercisePayload
   updateExercise(input: UpdateExerciseInput!): UpdateExercisePayload
+  copyExercise(input: CopyExerciseInput!): CopyExercisePayload
   removeFood(input: RemoveFoodInput!): RemoveFoodPayload
   createFood(input: CreateFoodInput!): CreateFoodPayload
   updateFood(input: UpdateFoodInput!): UpdateFoodPayload
+  copyFood(input: CopyFoodInput!): CopyFoodPayload
   removeMealPlan(input: RemoveMealPlanInput!): RemoveMealPlanPayload
   createMealPlan(input: CreateMealPlanInput!): CreateMealPlanPayload
   updateMealPlan(input: UpdateMealPlanInput!): UpdateMealPlanPayload
+  copyMealPlan(input: CopyMealPlanInput!): CopyMealPlanPayload
   removeWorkoutPlan(input: RemoveWorkoutPlanInput!): RemoveWorkoutPlanPayload
   createWorkoutPlan(input: CreateWorkoutPlanInput!): CreateWorkoutPlanPayload
   updateWorkoutPlan(input: UpdateWorkoutPlanInput!): UpdateWorkoutPlanPayload
+  copyWorkoutPlan(input: CopyWorkoutPlanInput!): CopyWorkoutPlanPayload
 }
 
 # An object with an ID

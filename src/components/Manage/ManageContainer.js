@@ -130,7 +130,9 @@ class ManageContainer extends Component {
   };
 
   [TOOLBAR_ACTIONS.DUPLICATE.action] = (itemdId) => {
-    alert(`Need to implement ${TOOLBAR_ACTIONS.DUPLICATE.action} action mutation`);
+    const itemEdge = manageService.getEdgeByItemId(this.props.category, this.props.viewer, this.state.selectedItemId);
+
+    manageService.copyItemById(this.props.category, this.state.selectedItemId, this.props.viewer, itemEdge.cursor);
   };
 
   onDeleteSubmit = () => {
