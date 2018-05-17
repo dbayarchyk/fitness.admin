@@ -7,8 +7,10 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 
+console.log(path.resolve(__dirname, './src/schema.graphql'));
+
 const relayCompilerPlugin = new RelayCompilerWebpackPlugin({
-  schema: path.resolve(__dirname, './src/schema.graphql'), // or schema.json
+  schema: path.resolve(__dirname, './src/schema.graphql'),
   src: path.resolve(__dirname, './src'),
 });
 

@@ -89,7 +89,7 @@ class MealPlanBuilder extends Component {
       isFeedModalOpen,
       editableMealDate,
 
-      ...data,
+      ...data
     } = this.state;
 
     CreateMealPlanMutation(mealPlanBuilderService.mapDataForRequest(data), this.props.viewer)
@@ -125,7 +125,7 @@ class MealPlanBuilder extends Component {
 
       id,
 
-      ...data,
+      ...data
     } = this.state;
 
     UpdateMealPlanMutation(this.props.viewer.node.id, mealPlanBuilderService.mapDataForRequest(data), this.props.viewer)

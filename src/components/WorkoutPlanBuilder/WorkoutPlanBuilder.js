@@ -95,7 +95,7 @@ class WorkoutPlanBuilder extends Component {
       isExerciseAproachModalOpen,
       editableWorkoutDate,
 
-      ...data,
+      ...data
     } = this.state;
 
     CreateWorkoutPlanMutation(workoutPlanBuilderService.mapDataForRequest(data), this.props.viewer)
@@ -131,7 +131,7 @@ class WorkoutPlanBuilder extends Component {
 
       id,
 
-      ...data,
+      ...data
     } = this.state;
 
     UpdateWorkoutPlanMutation(this.props.viewer.node.id, workoutPlanBuilderService.mapDataForRequest(data), this.props.viewer)
