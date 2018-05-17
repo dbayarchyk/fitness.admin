@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require('path');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
@@ -13,8 +12,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loaders: ["babel-loader", "babel-plugin-relay"],
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.css$/,

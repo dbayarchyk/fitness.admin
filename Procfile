@@ -1,1 +1,2 @@
-npm run server
+npm run relay;
+npm run server;
