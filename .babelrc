@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "transform-class-properties",
+    "relay"
+  ],
+  "presets": [
+    "env",
+    "react",
+    "es2015",
+    "stage-1"
+  ]
+}
