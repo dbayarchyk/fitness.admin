@@ -1,17 +1,9 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
 const path = require('path');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
-});
-
-console.log(path.resolve(__dirname, './src/schema.graphql'));
-
-const relayCompilerPlugin = new RelayCompilerWebpackPlugin({
-  schema: path.resolve(__dirname, './src/schema.graphql'),
-  src: path.resolve(__dirname, './src'),
 });
 
 module.exports = {
@@ -21,8 +13,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
-        },
+          loaders: ["babel-loader", "babel-plugin-relay"],
+        }
       },
       {
         test: /\.css$/,
@@ -37,7 +29,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [relayCompilerPlugin, htmlPlugin],
+  plugins: [htmlPlugin],
   devServer: {
     port: 3000,
     historyApiFallback: true
