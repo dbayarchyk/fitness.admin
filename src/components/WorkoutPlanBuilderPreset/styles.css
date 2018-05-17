@@ -1,0 +1,24 @@
+.workout-plan-builder-preset {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.workout-plan-builder-preset__cards {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  padding: 50px;
+  flex-wrap: wrap;
+}
+
+.workout-plan-builder-preset__card {
+  cursor: pointer;
+  margin: 50px;
+  width: 500px;
+}
+
+.workout-plan-builder-preset__card:hover {
+ box-shadow: rgba(0, 188, 212, 0.7) 0px 1px 6px, rgba(0, 188, 212, 0.7) 0px 1px 4px !important;
+}

@@ -42,7 +42,7 @@ class MealPlanBuilder extends Component {
     super(props);
 
     this.state = {
-      meals: {
+      meals: props.viewer.mealPlanTemplate ? props.viewer.mealPlanTemplate.meals : {
         edges: []
       },
       ...props.viewer.node,
@@ -52,6 +52,20 @@ class MealPlanBuilder extends Component {
       editableMealDate: null,
       isLoading: false,
     };
+  }
+
+  componentDidMount() {
+    window.onbeforeunload = () => 'Changes that you made may not be saved.';
+
+    if (!this.props.viewer.node && !mealPlanBuilderService.isPresetStepComplitted) {
+      this.props.history.push('/meal-plan-builder');
+    }
+  }
+
+  componentWillUnmount() {
+    mealPlanBuilderService.resetPresetStep();
+
+    window.onbeforeunload = null;
   }
   
   feedMealDate = null;
@@ -295,7 +309,9 @@ export default createFragmentContainer(
     fragment MealPlanBuilder_viewer on Viewer
     @argumentDefinitions(
       mealPlanId: { type: "ID!" },
+      mealPlanTemplateId: { type: "ID!" },
       skipFetchMealPlan: { type: "Boolean!" }
+      skipFetchMealPlanTemplate: { type: "Boolean!" }
     ) {
       node(id: $mealPlanId) @skip(if: $skipFetchMealPlan) {
         id
@@ -316,6 +332,27 @@ export default createFragmentContainer(
                       }
                       weight
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      mealPlanTemplate(id: $mealPlanTemplateId) @skip(if: $skipFetchMealPlanTemplate) {
+        meals {
+          edges {
+            node {
+              date,
+              feeds {
+                edges {
+                  node {
+                    food {
+                      id
+                      name
+                      avatarUrl
+                    }
+                    weight
                   }
                 }
               }

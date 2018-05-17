@@ -4,7 +4,7 @@ import manageService from '../services/manage.service';
 
 export default function (ComposedComponent, category) {
   if (!category) {
-    throw new Error('Category is defined');
+    throw new Error('Category is not defined');
   }
 
   return createRefetchContainer(

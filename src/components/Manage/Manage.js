@@ -24,6 +24,7 @@ const Manage = ({
   onChangeSort,
   actionClickHandler,
   onCreateClick,
+  createButtonLabel,
   onItemClick,
   onSearchSubmit,
   searchValue,
@@ -40,6 +41,7 @@ const Manage = ({
         getSortIconIfNeeded={getSortIconIfNeeded}
         actionClickHandler={actionClickHandler}
         onCreateClick={onCreateClick}
+        createButtonLabel={createButtonLabel}
         onChangeSort={onChangeSort}
         onSearchSubmit={onSearchSubmit}
         searchValue={searchValue}
@@ -149,6 +151,7 @@ Manage.propTypes = {
     name: PropTypes.string,
     direction: PropTypes.string,
   }),
+  createButtonLabel: PropTypes.string,
   selectedItemId: PropTypes.string,
   onCreateClick: PropTypes.func.isRequired,
   onChangeSort: PropTypes.func.isRequired,
@@ -163,6 +166,7 @@ Manage.defaultProps = {
     name: null,
     direction: 'asc',
   },
+  createButtonLabel: null,
   selectedItemId: null,
   onSearchSubmit: null,
   searchValue: null,

@@ -55,7 +55,7 @@ class MuscleBuilder extends Component {
             return error.errors.map(err => <ErrorMessage {...err} />)
           } else if (props) {
             if (!props.viewer.node) {
-              return <div>Muscle not found.</div>;
+              return <ErrorMessage message="Muscle not found" />;
             }
 
             return (

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, QueryRenderer } from 'react-relay';
 
+import workoutPlanBuilderService from '../services/workout-plan-builder.service';
+
 import Environment from '../Environment';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
@@ -10,10 +12,20 @@ import ErrorMessage from '../components/framework/ErrorMessage';
 import WorkoutPlanBuilderView from '../components/WorkoutPlanBuilder';
 
 const WorkoutPlanBuilderQuery = graphql`
-  query WorkoutPlanBuilderQuery($workoutPlanId: ID!, $skipFetchWorkoutPlan: Boolean!) {
+  query WorkoutPlanBuilderQuery(
+    $workoutPlanId: ID!,
+    $workoutPlanTemplateId: ID!,
+    $skipFetchWorkoutPlan: Boolean!,
+    $skipFetchWorkoutPlanTemplate: Boolean!
+  ) {
     viewer {
       ...WorkoutPlanBuilder_viewer
-      @arguments(workoutPlanId: $workoutPlanId, skipFetchWorkoutPlan: $skipFetchWorkoutPlan)
+      @arguments(
+        workoutPlanId: $workoutPlanId,
+        workoutPlanTemplateId: $workoutPlanTemplateId,
+        skipFetchWorkoutPlan: $skipFetchWorkoutPlan,
+        skipFetchWorkoutPlanTemplate: $skipFetchWorkoutPlanTemplate,
+      )
     }
   }
 `;
@@ -36,7 +48,9 @@ class WorkoutPlanBuilder extends Component {
         query={WorkoutPlanBuilderQuery}
         variables={{
           workoutPlanId: id || '',
+          workoutPlanTemplateId: workoutPlanBuilderService.templateId || '',
           skipFetchWorkoutPlan: !id,
+          skipFetchWorkoutPlanTemplate: !workoutPlanBuilderService.templateId,
         }}
         render={({ error, props }) => {
           if (error && !error.errors) {
@@ -45,7 +59,7 @@ class WorkoutPlanBuilder extends Component {
             return error.errors.map(err => <ErrorMessage {...err} />)
           } else if (props) {
             if (!props.viewer) {
-              return <div>WorkoutPlan not found.</div>;
+              return <ErrorMessage message="WorkoutPlan not found" />;
             }
 
             return (

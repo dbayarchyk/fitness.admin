@@ -16,7 +16,8 @@ const COLUMNS = {
     },
     GROUP: {
       name: 'group',
-      title: 'Group'
+      title: 'Group',
+      filter: _.capitalize,
     },
     CREATED_DATE: {
       name: 'createdAt',

@@ -2,6 +2,19 @@ import _ from 'lodash';
 import moment from 'moment';
 
 class MealPlanBuilderService {
+  isPresetStepComplitted = false;
+  templateId = null;
+
+  complitePresetStep(tempalteId) {
+    this.templateId = tempalteId;
+    this.isPresetStepComplitted = true;
+  }
+
+  resetPresetStep() {
+    this.isPresetStepComplitted = false;
+    this.templateId = null;
+  }
+  
   filterOutMealByDate(meals, date) {
     return {
       ...meals,

@@ -96,19 +96,19 @@ class ManageContainer extends Component {
 
     switch(this.props.category) {
       case CATEGORY.MUSCLES.type:
-        link = `/muscle-builder/${itemId}`;
+        link = `/muscle-builder/creator/${itemId}`;
         break;
       case CATEGORY.EXERCISES.type:
-        link = `/exercise-builder/${itemId}`;
+        link = `/exercise-builder/creator/${itemId}`;
         break;
       case CATEGORY.FOODS.type:
-        link = `/food-builder/${itemId}`;
+        link = `/food-builder/creator/${itemId}`;
         break;
       case CATEGORY.MEAL_PLANS.type:
-        link = `/meal-plan-builder/${itemId}`;
+        link = `/meal-plan-builder/creator/${itemId}`;
         break;
       case CATEGORY.WORKOUT_PLANS.type:
-        link = `/workout-plan-builder/${itemId}`;
+        link = `/workout-plan-builder/creator/${itemId}`;
         break;
       default:
         throw new Error(`There is no ${TOOLBAR_ACTIONS.EDIT.action} handler for ${this.props.category}`);
@@ -153,6 +153,16 @@ class ManageContainer extends Component {
     manageService.saveItemAsTemplate(this.props.category, this.state.selectedItemId, templateName, this.props.viewer);
   };
 
+  getCreateButtonLabel = () => {
+    switch(this.props.category) {
+      case CATEGORY.MEAL_PLAN_TEMPLATES.type:
+      case CATEGORY.WORKOUT_PLAN_TEMPLATES.type:
+        return 'Create Plan From Template';
+      default:
+      return 'Create new';
+    }
+  };
+
   create = () => {
     let link = null;
 
@@ -167,9 +177,11 @@ class ManageContainer extends Component {
         link = '/food-builder';
         break;
       case CATEGORY.MEAL_PLANS.type:
+      case CATEGORY.MEAL_PLAN_TEMPLATES.type:
         link = '/meal-plan-builder';
         break;
       case CATEGORY.WORKOUT_PLANS.type:
+      case CATEGORY.WORKOUT_PLAN_TEMPLATES.type:
         link = '/workout-plan-builder';
         break;
       default:
@@ -205,6 +217,7 @@ class ManageContainer extends Component {
         items={manageService.getItems(category, viewer)}
         sort={this.state.sort}
         selectedItemId={this.state.selectedItemId}
+        createButtonLabel={this.getCreateButtonLabel()}
 
         onItemClick={this.onItemClick}
         onCreateClick={this.create}

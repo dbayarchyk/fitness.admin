@@ -23,6 +23,7 @@ const ManageToolbar = ({
   sortColumns,
   getSortIconIfNeeded,
   searchHintText,
+  createButtonLabel,
   isSearchAvailable,
   isAdvancedSearchAvailable,
   actionClickHandler,
@@ -97,7 +98,7 @@ const ManageToolbar = ({
 
       <RaisedButton
         primary
-        label="Create New"
+        label={createButtonLabel}
         onClick={onCreateClick}
       />
 
@@ -155,6 +156,7 @@ ManageToolbar.propTypes = {
     })
   ).isRequired,
   searchHintText: PropTypes.string,
+  createButtonLabel: PropTypes.string,
   isSearchAvailable: PropTypes.bool,
   isAdvancedSearchAvailable: PropTypes.bool,
   getSortIconIfNeeded: PropTypes.func.isRequired,
@@ -174,6 +176,7 @@ ManageToolbar.defaultProps = {
   },
   showToolbarActions: true,
   searchHintText: 'Search',
+  createButtonLabel: 'Create',
   isSearchAvailable: true,
   isAdvancedSearchAvailable: false,
   onSearchSubmit: null,

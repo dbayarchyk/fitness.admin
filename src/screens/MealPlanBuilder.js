@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, QueryRenderer } from 'react-relay';
 
+import mealPlanBuilderService from '../services/meal-plan-builder.service';
+
 import Environment from '../Environment';
 
 import BackgroundSpinner from '../components/framework/BackgroundSpinner';
@@ -10,10 +12,20 @@ import ErrorMessage from '../components/framework/ErrorMessage';
 import MealPlanBuilderView from '../components/MealPlanBuilder';
 
 const MealPlanBuilderQuery = graphql`
-  query MealPlanBuilderQuery($mealPlanId: ID!, $skipFetchMealPlan: Boolean!) {
+  query MealPlanBuilderQuery(
+    $mealPlanId: ID!,
+    $mealPlanTemplateId: ID!,
+    $skipFetchMealPlan: Boolean!,
+    $skipFetchMealPlanTemplate: Boolean!
+  ) {
     viewer {
       ...MealPlanBuilder_viewer
-      @arguments(mealPlanId: $mealPlanId, skipFetchMealPlan: $skipFetchMealPlan)
+      @arguments(
+        mealPlanId: $mealPlanId,
+        mealPlanTemplateId: $mealPlanTemplateId,
+        skipFetchMealPlan: $skipFetchMealPlan,
+        skipFetchMealPlanTemplate: $skipFetchMealPlanTemplate
+      )
     }
   }
 `;
@@ -36,7 +48,9 @@ class MealPlanBuilder extends Component {
         query={MealPlanBuilderQuery}
         variables={{
           mealPlanId: id || '',
+          mealPlanTemplateId: mealPlanBuilderService.templateId || '',
           skipFetchMealPlan: !id,
+          skipFetchMealPlanTemplate: !mealPlanBuilderService.templateId,
         }}
         render={({ error, props }) => {
           if (error && !error.errors) {

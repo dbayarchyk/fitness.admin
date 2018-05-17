@@ -1086,6 +1086,8 @@ type Viewer implements Node {
     id: ID!
   ): Node
   workout: Workout
+  mealPlanTemplate(id: ID!): MealPlanTemplate
+  workoutPlanTemplate(id: ID!): WorkoutPlanTemplate
   mealPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanConnection
   mealPlanTemplates(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): MealPlanTemplateConnection
   workoutPlans(after: String, first: Int, before: String, last: Int, startDate: String, endDate: String, sort: String, name: String): WorkoutPlanConnection

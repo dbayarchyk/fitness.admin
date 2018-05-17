@@ -2,6 +2,19 @@ import _ from 'lodash';
 import moment from 'moment';
 
 class WorkoutPlanBuilderService {
+  isPresetStepComplitted = false;
+  templateId = null;
+
+  complitePresetStep(tempalteId) {
+    this.templateId = tempalteId;
+    this.isPresetStepComplitted = true;
+  }
+
+  resetPresetStep() {
+    this.isPresetStepComplitted = false;
+    this.templateId = null;
+  }
+
   filterOutWorkoutByDate(workouts, date) {
     return {
       ...workouts,

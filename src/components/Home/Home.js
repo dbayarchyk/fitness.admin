@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import FlatButton from 'material-ui/FlatButton';
+import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 
 import NavBar from '../framework/NavBar';
 
 class Home extends Component { 
   static propTypes = {
     children: PropTypes.node,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
@@ -21,19 +26,27 @@ class Home extends Component {
 
   toggleNavBar = () => this.setState(prevState => ({ isNavBarOpen: !prevState.isNavBarOpen }));
 
+  logOut = () => {
+    localStorage.removeItem('f-token');
+    this.props.history.push('/signin');
+  };
+
   render() {
     const { children } = this.props;
-
-    const header = (
-      <AppBar
-        title={<Link to="/">Fitness Admin</Link>}
-        onLeftIconButtonClick={this.toggleNavBar}
-      />
-    );
     
     return (
       <div>
-        {header}
+        <AppBar
+          title={<Link to="/">Fitness Admin</Link>}
+          onLeftIconButtonClick={this.toggleNavBar}
+          iconElementRight={(
+            <FlatButton
+              onClick={this.logOut}
+              label="Log Out"
+              icon={<ExitToAppIcon />}
+            />
+          )}
+        />
         
         <div>
           {children}
@@ -44,7 +57,10 @@ class Home extends Component {
           docked={false}
           onRequestChange={(isNavBarOpen) => this.setState({ isNavBarOpen })}
         >
-          {header}
+          <AppBar
+            title={<Link to="/">Fitness Admin</Link>}
+            onLeftIconButtonClick={this.toggleNavBar}
+          />
 
           <NavBar onNavItemClicked={this.toggleNavBar} />
         </Drawer>
@@ -53,4 +69,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

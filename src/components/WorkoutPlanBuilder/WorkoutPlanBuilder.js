@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 import {
   Toolbar,
   ToolbarGroup,
   ToolbarTitle,
 } from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import TimePicker from 'material-ui/TimePicker';
+
+import * as GENDER from '../../constants/gender';
 
 import VALIDATION_CONFIG from './validationConfig';
 
@@ -42,7 +47,8 @@ class WorkoutPlanBuilder extends Component {
     super(props);
 
     this.state = {
-      workouts: {
+      gender: GENDER.ALL.value,
+      workouts: props.viewer.workoutPlanTemplate ? props.viewer.workoutPlanTemplate.workouts : {
         edges: []
       },
       ...props.viewer.node,
@@ -52,6 +58,20 @@ class WorkoutPlanBuilder extends Component {
       editableWorkoutDate: null,
       isLoading: false,
     };
+  }
+
+  componentDidMount() {
+    window.onbeforeunload = () => 'Changes that you made may not be saved.';
+
+    if (!this.props.viewer.node && !workoutPlanBuilderService.isPresetStepComplitted) {
+      this.props.history.push('/workout-plan-builder');
+    }
+  }
+
+  componentWillUnmount() {
+    workoutPlanBuilderService.resetPresetStep();
+
+    window.onbeforeunload = null;
   }
   
   feedWorkoutDate = null;
@@ -249,7 +269,14 @@ class WorkoutPlanBuilder extends Component {
           </div>
 
           <div>
-            <h3>Gender</h3>
+            <SelectField
+              fullWidth
+              value={this.state.gender}
+              floatingLabelText="Gender"
+              onChange={(event, index, gender) => this.setState({ gender })}
+            >
+              {_.values(GENDER).map(gender => <MenuItem key={gender.value} value={gender.value} primaryText={gender.title} />)}
+            </SelectField>
           </div>
 
           <div>
@@ -306,7 +333,9 @@ export default createFragmentContainer(
     fragment WorkoutPlanBuilder_viewer on Viewer
     @argumentDefinitions(
       workoutPlanId: { type: "ID!" },
+      workoutPlanTemplateId: { type: "ID!" },
       skipFetchWorkoutPlan: { type: "Boolean!" }
+      skipFetchWorkoutPlanTemplate: { type: "Boolean!" }
     ) {
       node(id: $workoutPlanId) @skip(if: $skipFetchWorkoutPlan) {
         id
@@ -327,6 +356,27 @@ export default createFragmentContainer(
                       }
                       count
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      workoutPlanTemplate(id: $workoutPlanTemplateId) @skip(if: $skipFetchWorkoutPlanTemplate) {
+        workouts {
+          edges {
+            node {
+              date,
+              exerciseAproaches {
+                edges {
+                  node {
+                    exercise {
+                      id
+                      name
+                      avatarUrl
+                    }
+                    count
                   }
                 }
               }
