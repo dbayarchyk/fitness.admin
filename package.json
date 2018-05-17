@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "server": "node server.js",
+    "server": "npm run relay && webpack --mode production && node server.js",
     "relay": "relay-compiler --src ./src --schema ./src/schema.graphql",
     "build": "webpack --mode production",
     "update-schema": "get-graphql-schema https://fitness-graphql-relay.herokuapp.com/graphql > ./src/schema.graphql",
