@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import authService from '../services/auth.service';
+
 import CONFIG from '../config';
 import { email as emailRegExp } from '../constants/regExp';
 import checkValidation from '../helpers/checkValidation';
@@ -38,9 +40,11 @@ class Login extends Component {
         this.setState({ isLoading: false });
 
         if (response.login) {
-          localStorage.setItem(CONFIG.AUTH_TOKEN, response.login.token);
+          authService.login(response.login);
           alert('Welcome to the admin console!');
-          this.props.history.push('/');
+
+          // Do not use react router because need to reloud app to pull viewer data.
+          window.location = '/';
         } else {
           alert('Oops, something went wrong!');
         }

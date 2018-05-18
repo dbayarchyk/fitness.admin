@@ -9,7 +9,7 @@ import Home from './screens/Home';
 const Routes = () => (
   <Switch>
     <Route exact path="/signin" component={Login} />
-    <Route path="/" component={Home} />
+    <Route path="/" component={restrictedRoute(Home)} />
   </Switch>
 );
 

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+// <RaisedButton label="Create Account" onClick={onSignUpClick} disabled />
+
 const LoginForm = ({
   email,
   password,
@@ -32,7 +34,6 @@ const LoginForm = ({
     </section>
 
     <footer>
-      <RaisedButton label="Create Account" onClick={onSignUpClick} disabled />
       <RaisedButton label="Sign In" primary onClick={onSignInClick} disabled={isSignInButtonDisabled} />
     </footer>
   </form>

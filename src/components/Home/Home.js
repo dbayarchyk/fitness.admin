@@ -6,6 +6,8 @@ import Drawer from 'material-ui/Drawer';
 import FlatButton from 'material-ui/FlatButton';
 import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 
+import authService from '../../services/auth.service';
+
 import NavBar from '../framework/NavBar';
 
 class Home extends Component { 
@@ -27,7 +29,7 @@ class Home extends Component {
   toggleNavBar = () => this.setState(prevState => ({ isNavBarOpen: !prevState.isNavBarOpen }));
 
   logOut = () => {
-    localStorage.removeItem('f-token');
+    authService.logout();
     this.props.history.push('/signin');
   };
 

@@ -12,21 +12,26 @@ const QueryRendererContainer = ({
   query,
   variables,
   render,
+  onlyCustomRender,
 }) => (
   <QueryRenderer
     environment={environment}
     query={query}
     variables={variables}
     render={({ error, props }) => {
-      if (error && !error.errors) {
-        return <ErrorMessage {...error} />;
-      } if (error && error.errors.length) {
-        return error.errors.map(err => <ErrorMessage {...err} />)
-      } else if (props) {
+      if (onlyCustomRender) {
         return render({ error, props });
+      } else {
+        if (error && !error.errors) {
+          return <ErrorMessage {...error} />;
+        } if (error && error.errors.length) {
+          return error.errors.map(err => <ErrorMessage {...err} />)
+        } else if (props) {
+          return render({ error, props });
+        }
+  
+        return <BackgroundSpinner isShowing />;
       }
-
-      return <BackgroundSpinner isShowing />;
     }}
   />
 );
@@ -36,11 +41,13 @@ QueryRendererContainer.propTypes = {
   query: PropTypes.func.isRequired,
   variables: PropTypes.object,
   render: PropTypes.func.isRequired,
+  onlyCustomRender: PropTypes.bool,
 };
 
 QueryRendererContainer.defaultProps = {
   environment: Environment,
   variables: null,
+  onlyCustomRender: false,
 };
 
 export default QueryRendererContainer;
