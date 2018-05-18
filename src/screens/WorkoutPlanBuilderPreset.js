@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, QueryRenderer } from 'react-relay';
+import { graphql } from 'react-relay';
 
-import Environment from '../Environment';
-
-import BackgroundSpinner from '../components/framework/BackgroundSpinner';
-import ErrorMessage from '../components/framework/ErrorMessage';
-
+import QueryRenderer from '../components/framework/QueryRenderer';
 import WorkoutPlanBuilderPresetView from '../components/WorkoutPlanBuilderPreset';
 
 const WorkoutPlanBuilderPresetQuery = graphql`
@@ -17,32 +13,11 @@ const WorkoutPlanBuilderPresetQuery = graphql`
   }
 `;
 
-class WorkoutPlanBuilderPreset extends Component {
-  render() {
-    return (
-      <QueryRenderer
-        environment={Environment}
-        query={WorkoutPlanBuilderPresetQuery}
-        render={({ error, props }) => {
-          if (error && !error.errors) {
-            return <ErrorMessage {...error} />;
-          } if (error && error.errors.length) {
-            return error.errors.map(err => <ErrorMessage {...err} />)
-          } else if (props) {
-            if (!props.viewer) {
-              return <ErrorMessage message="Oops, something went wrong!" />;
-            }
+const WorkoutPlanBuilderPresetContainer = () => (
+  <QueryRenderer
+    query={WorkoutPlanBuilderPresetQuery}
+    render={({ props }) => <WorkoutPlanBuilderPresetView viewer={props.viewer} />}
+  />
+);
 
-            return (
-              <WorkoutPlanBuilderPresetView viewer={props.viewer} />
-            );
-          }
-    
-          return <BackgroundSpinner isShowing />;
-        }}
-      />
-    );
-  }
-}
-
-export default WorkoutPlanBuilderPreset;
+export default WorkoutPlanBuilderPresetContainer;

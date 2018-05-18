@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, QueryRenderer } from 'react-relay';
+import { graphql } from 'react-relay';
 
-import Environment from '../Environment';
-
-import BackgroundSpinner from '../components/framework/BackgroundSpinner';
-
+import QueryRenderer from '../components/framework/QueryRenderer';
 import FoodBuilderView from '../components/FoodBuilder';
 
 const FoodBuilderQuery = graphql`
@@ -17,46 +14,23 @@ const FoodBuilderQuery = graphql`
   }
 `;
 
-class FoodBuilder extends Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string,
-      }),
-    }).isRequired,
-  };
+const FoodBuilderContainer = ({ match: { params } }) => (
+  <QueryRenderer
+    query={FoodBuilderQuery}
+    variables={{
+      foodId: params.id || '',
+      skipFetchFood: !params.id,
+    }}
+    render={({ props }) => <FoodBuilderView viewer={props.viewer} />}
+  />
+);
 
-  render() {
-    const id = this.props.match.params.id;
+FoodBuilderContainer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
-    return (
-      <QueryRenderer
-        environment={Environment}
-        query={FoodBuilderQuery}
-        variables={{
-          foodId: id || '',
-          skipFetchFood: !id,
-        }}
-        render={({ error, props }) => {
-          if (error && !error.errors) {
-            return <div>{error.message}</div>;
-          } if (error && error.errors.length) {
-            return error.errors.map(err => <div>{err.message}</div>)
-          } else if (props) {
-            if (!props.viewer) {
-              return <div>Food not found.</div>;
-            }
-
-            return (
-              <FoodBuilderView viewer={props.viewer} />
-            );
-          }
-    
-          return <BackgroundSpinner isShowing />;
-        }}
-      />
-    );
-  }
-}
-
-export default FoodBuilder;
+export default FoodBuilderContainer;

@@ -96,13 +96,13 @@ class ManageContainer extends Component {
 
     switch(this.props.category) {
       case CATEGORY.MUSCLES.type:
-        link = `/muscle-builder/creator/${itemId}`;
+        link = `/muscle-builder/${itemId}`;
         break;
       case CATEGORY.EXERCISES.type:
-        link = `/exercise-builder/creator/${itemId}`;
+        link = `/exercise-builder/${itemId}`;
         break;
       case CATEGORY.FOODS.type:
-        link = `/food-builder/creator/${itemId}`;
+        link = `/food-builder/${itemId}`;
         break;
       case CATEGORY.MEAL_PLANS.type:
         link = `/meal-plan-builder/creator/${itemId}`;

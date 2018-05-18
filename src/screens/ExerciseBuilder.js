@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, QueryRenderer } from 'react-relay';
+import { graphql } from 'react-relay';
 
-import Environment from '../Environment';
-
-import BackgroundSpinner from '../components/framework/BackgroundSpinner';
-import ErrorMessage from '../components/framework/ErrorMessage';
-
+import QueryRenderer from '../components/framework/QueryRenderer';
 import ExerciseBuilderView from '../components/ExerciseBuilder';
 
 const ExerciseBuilderQuery = graphql`
@@ -18,46 +14,23 @@ const ExerciseBuilderQuery = graphql`
   }
 `;
 
-class ExerciseBuilder extends Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string,
-      }),
-    }).isRequired,
-  };
+const ExerciseBuilderContainer = ({ match: { params } }) => (
+  <QueryRenderer
+    query={ExerciseBuilderQuery}
+    variables={{
+      exerciseId: params.id || '',
+      skipFetchExercise: !params.id,
+    }}
+    render={({ props }) => <ExerciseBuilderView viewer={props.viewer} />}
+  />
+);
 
-  render() {
-    const id = this.props.match.params.id;
+ExerciseBuilderContainer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
-    return (
-      <QueryRenderer
-        environment={Environment}
-        query={ExerciseBuilderQuery}
-        variables={{
-          exerciseId: id || '',
-          skipFetchExercise: !id,
-        }}
-        render={({ error, props }) => {
-          if (error && !error.errors) {
-            return <ErrorMessage {...error} />;
-          } if (error && error.errors.length) {
-            return error.errors.map(err => <ErrorMessage {...err} />)
-          } else if (props) {
-            if (!props.viewer) {
-              return <div>Exercise not found.</div>;
-            }
-
-            return (
-              <ExerciseBuilderView viewer={props.viewer} />
-            );
-          }
-    
-          return <BackgroundSpinner isShowing />;
-        }}
-      />
-    );
-  }
-}
-
-export default ExerciseBuilder;
+export default ExerciseBuilderContainer;

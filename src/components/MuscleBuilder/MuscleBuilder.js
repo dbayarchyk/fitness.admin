@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import {
@@ -23,10 +24,12 @@ import * as MUSCLE_GROUP from '../../constants/muscleGroup';
 
 class MuscleBuilder extends Component {
   static propTypes = {
-    node: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      group: PropTypes.string.isRequired,
-    }),
+    viewer: PropTypes.shape({
+      node: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        group: PropTypes.string.isRequired,
+      }),
+    }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
@@ -40,7 +43,7 @@ class MuscleBuilder extends Component {
     super(props);
 
     this.state = {
-      ...props.node,
+      ...props.viewer.node,
 
       isLoading: false,
     };
@@ -49,7 +52,7 @@ class MuscleBuilder extends Component {
   onFieldChange = (name, value) => this.setState({ [name]: value });
 
   submitChanges = () => {
-    if (this.props.node && this.props.node.id) {
+    if (this.props.viewer.node && this.props.viewer.node.id) {
       this.updateMuscle();
     } else {
       this.createMuscle();
@@ -88,7 +91,7 @@ class MuscleBuilder extends Component {
 
     const { isLoading, id, ...data } = this.state;
 
-    UpdateMuscleMutation(this.props.node.id, data, this.props.viewer)
+    UpdateMuscleMutation(this.props.viewer.node.id, data, this.props.viewer)
       .then((response, errors) => {
         this.setState({ isLoading: false });
   
@@ -112,7 +115,7 @@ class MuscleBuilder extends Component {
   isDataValid = () => checkValidation(this.state, validationConfig);
 
   render() {
-    const isEditMode = this.props.node && this.props.node.id;
+    const isEditMode = this.props.viewer.node && this.props.viewer.node.id;
 
     return (
       <div>
@@ -170,4 +173,21 @@ const validationConfig = {
   },
 };
 
-export default withRouter(MuscleBuilder);
+export default createFragmentContainer(
+  withRouter(MuscleBuilder),
+  graphql`
+    fragment MuscleBuilder_viewer on Viewer
+    @argumentDefinitions(
+      muscleId: { type: "ID!" },
+      skipFetchMuscle: { type: "Boolean!" }
+    ) {
+      node(id: $muscleId) @skip(if: $skipFetchMuscle) {
+        id
+        ... on Muscle {
+          name
+          group
+        }
+      }
+    }
+  `,
+);
