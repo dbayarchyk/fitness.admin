@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-relay';
-
-import workoutPlanBuilderService from '../services/workout-plan-builder.service';
-
 import QueryRenderer from '../components/framework/QueryRenderer';
+import React from 'react';
 import WorkoutPlanBuilderView from '../components/WorkoutPlanBuilder';
+import { graphql } from 'react-relay';
+import workoutPlanBuilderService from '../services/workout-plan-builder.service';
 
 const WorkoutPlanBuilderQuery = graphql`
   query WorkoutPlanBuilderQuery(
@@ -28,12 +26,12 @@ const WorkoutPlanBuilderQuery = graphql`
 
 const WorkoutPlanBuilderContainer = ({ match: { params } }) => (
   <QueryRenderer
-    query={workoutPlanBuilderQuery}
+    query={WorkoutPlanBuilderQuery}
     variables={{
       workoutPlanId: params.id || '',
       workoutPlanTemplateId: workoutPlanBuilderService.templateId || '',
-      skipFetchworkoutPlan: !params.id,
-      skipFetchworkoutPlanTemplate: !workoutPlanBuilderService.templateId,
+      skipFetchWorkoutPlan: !params.id,
+      skipFetchWorkoutPlanTemplate: !workoutPlanBuilderService.templateId,
     }}
     render={({ props }) => <WorkoutPlanBuilderView viewer={props.viewer} />}
   />
