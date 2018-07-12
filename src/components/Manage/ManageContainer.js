@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
-
 import * as TOOLBAR_ACTIONS from '../../constants/manage/toolbarActions';
+
+import React, { Component } from 'react';
+
 import CATEGORY from '../../constants/manage/category';
-
-import manageService from '../../services/manage.service';
-
-import Manage from './Manage';
 import DeleteModal from './DeleteModal';
+import Manage from './Manage';
+import PropTypes from 'prop-types';
 import RenameModal from './RenameModal';
 import SaveAsTemplateModal from './SaveAsTemplateModal';
+import _ from 'lodash';
+import manageService from '../../services/manage.service';
+import { withRouter } from 'react-router-dom';
 
 class ManageContainer extends Component {
   static propTypes = {
@@ -88,7 +87,10 @@ class ManageContainer extends Component {
 
   onSearchSubmit = (searchValue) => {
     this.setState({ searchValue });
-    this.props.relay.refetch({ name: searchValue });
+    this.props.relay.refetch({
+      name: searchValue,
+      sort: manageService.getSortValue(this.state.sort),
+    });
   };
 
   [TOOLBAR_ACTIONS.EDIT.action] = (itemId) => {
