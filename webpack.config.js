@@ -6,6 +6,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
+  devtool: 'source-map',
   resolve: {
     extensions: [
       '.js',
