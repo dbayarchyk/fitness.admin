@@ -1,3 +1,1 @@
-import MealPlanBuilder from './MealPlanBuilder';
-
-export default MealPlanBuilder;
+export { default } from './MealPlanBuilder';

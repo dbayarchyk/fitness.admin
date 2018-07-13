@@ -1,3 +1,1 @@
-import DailyMeals from './DailyMeals';
-
-export default DailyMeals;
+export { default } from './DailyMeals';

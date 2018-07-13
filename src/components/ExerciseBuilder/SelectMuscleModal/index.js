@@ -1,3 +1,1 @@
-import SelectMuscleModal from './SelectMuscleModal';
-
-export default SelectMuscleModal;
+export { default } from './SelectMuscleModal';

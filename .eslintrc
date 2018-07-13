@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "globals": {
+    "document": true,
+    "window": true,
+    "localStorage": true,
+    "fetch": true,
+    "alert": true
+  },
+  "rules": {
+    "react/jsx-one-expression-per-line": false
+  }
+}

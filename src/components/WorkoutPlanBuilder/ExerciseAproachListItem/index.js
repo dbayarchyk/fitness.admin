@@ -1,3 +1,1 @@
-import ExerciseAproachListItem from './ExerciseAproachListItem';
-
-export default ExerciseAproachListItem;
+export { default } from './ExerciseAproachListItem';

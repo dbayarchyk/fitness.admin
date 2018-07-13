@@ -1,4 +1,4 @@
-import { 
+import {
   commitMutation,
   graphql,
 } from 'react-relay';
@@ -19,7 +19,7 @@ const mutation = graphql`
   }
 `;
 
-const UpdateWorkoutPlanMutation = (id, data, viewer) => {
+const UpdateWorkoutPlanMutation = (id, data) => {
   const variables = {
     input: {
       id,

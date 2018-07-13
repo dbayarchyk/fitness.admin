@@ -20,7 +20,7 @@ class Auth {
         this.viewer = viewer;
         resolve();
       })
-      .catch((res) => {
+      .catch(() => {
         this.viewer = null;
         reject();
       });
@@ -33,6 +33,6 @@ class Auth {
   logout = () => {
     localStorage.removeItem(CONFIG.AUTH_TOKEN);
   };
-};
+}
 
 export default new Auth();

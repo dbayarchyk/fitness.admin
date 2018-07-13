@@ -1,10 +1,10 @@
 import CATEGORY from '../category';
 import ManageMusclesFragment from './ManageMuscles';
-import ManageExercisesFragment from './ManageExercises'
+import ManageExercisesFragment from './ManageExercises';
 import ManageUsersFragment from './ManageUsers';
 import ManageFoodsFragment from './ManageFoods';
 import ManageMealPlansFragment from './ManageMealPlans';
-import ManageMealPlanTemplatesFragment from './ManageMealPlanTemplates'
+import ManageMealPlanTemplatesFragment from './ManageMealPlanTemplates';
 import ManageWorkoutPlansFragment from './ManageWorkoutPlans';
 import ManageWorkoutPlanTemplatesFragment from './ManageWorkoutPlanTemplates';
 

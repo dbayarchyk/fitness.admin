@@ -3,6 +3,7 @@ import moment from 'moment';
 
 class WorkoutPlanBuilderService {
   isPresetStepComplitted = false;
+
   templateId = null;
 
   complitePresetStep(tempalteId) {
@@ -15,32 +16,30 @@ class WorkoutPlanBuilderService {
     this.templateId = null;
   }
 
-  filterOutWorkoutByDate(workouts, date) {
-    return {
-      ...workouts,
-      edges: _.filter(workouts.edges, ({ node }) => node.date !== date),
-    };
-  }
+  filterOutWorkoutByDate = (workouts, date) => ({
+    ...workouts,
+    edges: _.filter(workouts.edges, ({ node }) => node.date !== date),
+  })
 
-  filterOutAllWorkoutsByDate(workouts, date) {
+  filterOutAllWorkoutsByDate = (workouts, date) => {
     const startDate = moment(date).startOf('day');
     const endDate = moment(date).startOf('day').add(1, 'd');
-    
-    date = moment(date);
 
     return {
       ...workouts,
-      edges: _.filter(workouts.edges, ({ node: workout }) => !(moment(workout.date) >= startDate && moment(workout.date) < endDate)),
+      edges: workouts.edges.filter(({ node: workout }) => !(moment(workout.date) >= startDate
+                                                            && moment(workout.date) < endDate)),
     };
   }
 
-  addWorkoutByDate(workouts, date) {
+  addWorkoutByDate = (workouts, date) => {
     const startDate = moment(date).startOf('day');
     const endDate = moment(date).startOf('day').add(1, 'd');
-    
-    date = moment(date);
 
-    const { node: lastWorkoutOfTheDay } = _.last(_.filter(workouts.edges, ({ node: workout }) => moment(workout.date) >= startDate && moment(workout.date) < endDate));
+    const { node: lastWorkoutOfTheDay } = _.last(
+      workouts.edges.filter(({ node: workout }) => moment(workout.date) >= startDate
+                                                   && moment(workout.date) < endDate),
+    );
 
     return {
       ...workouts,
@@ -51,16 +50,16 @@ class WorkoutPlanBuilderService {
           node: {
             date: moment(lastWorkoutOfTheDay.date).add(2, 'hours').toString(),
             exerciseAproaches: {
-              edges: []
+              edges: [],
             },
-          }
+          },
         },
       ],
     };
   }
 
-  updateWorkoutDateByOldDate(workouts, date, newDate) {
-    const editableIndex = _.findIndex(workouts.edges, ({ node }) => node.date === date );
+  updateWorkoutDateByOldDate = (workouts, date, newDate) => {
+    const editableIndex = _.findIndex(workouts.edges, ({ node }) => node.date === date);
 
     return {
       ...workouts,
@@ -78,8 +77,8 @@ class WorkoutPlanBuilderService {
     };
   }
 
-  filterOutExerciseAproachByIndexAndWorkoutDate(workouts, workoutDate, exerciseAproachIndex) {
-    const editableWorkoutIndex = _.findIndex(workouts.edges, ({ node }) => node.date === workoutDate );
+  filterOutExerciseAproachByIndexAndWorkoutDate = (workouts, workoutDate, exerciseAproachIndex) => {
+    const editableWorkoutIndex = workouts.edges.findIndex(({ node }) => node.date === workoutDate);
 
     return {
       ...workouts,
@@ -95,7 +94,7 @@ class WorkoutPlanBuilderService {
                 ...workouts.edges[editableWorkoutIndex].node.exerciseAproaches.edges.slice(0, exerciseAproachIndex),
                 ...workouts.edges[editableWorkoutIndex].node.exerciseAproaches.edges.slice(exerciseAproachIndex + 1),
               ],
-            }
+            },
           },
         },
         ...workouts.edges.slice(editableWorkoutIndex + 1),
@@ -103,8 +102,8 @@ class WorkoutPlanBuilderService {
     };
   }
 
-  addExerciseAproachToWorkoutByDate(workouts, workoutDate, exerciseAproach) {
-    const editableWorkoutIndex = _.findIndex(workouts.edges, ({ node }) => node.date === workoutDate );
+  addExerciseAproachToWorkoutByDate = (workouts, workoutDate, exerciseAproach) => {
+    const editableWorkoutIndex = workouts.edges.findIndex(({ node }) => node.date === workoutDate );
     const newExerciseAproachEdge = {
       cursor: '',
       node: exerciseAproach,
@@ -124,7 +123,7 @@ class WorkoutPlanBuilderService {
                 ...workouts.edges[editableWorkoutIndex].node.exerciseAproaches.edges,
                 newExerciseAproachEdge,
               ],
-            }
+            },
           },
         },
         ...workouts.edges.slice(editableWorkoutIndex + 1),
@@ -132,8 +131,13 @@ class WorkoutPlanBuilderService {
     };
   }
 
-  updateExerciseAproachByIndexWorkoutByDate(workouts, workoutDate, updatedExerciseAproach, exerciseAproachIndex) {
-    const editableWorkoutIndex = _.findIndex(workouts.edges, ({ node }) => node.date === workoutDate );
+  updateExerciseAproachByIndexWorkoutByDate = (
+    workouts,
+    workoutDate,
+    updatedExerciseAproach,
+    exerciseAproachIndex,
+  ) => {
+    const editableWorkoutIndex = workouts.edges.findIndex(({ node }) => node.date === workoutDate );
 
     return {
       ...workouts,
@@ -153,7 +157,7 @@ class WorkoutPlanBuilderService {
                 },
                 ...workouts.edges[editableWorkoutIndex].node.exerciseAproaches.edges.slice(exerciseAproachIndex + 1),
               ],
-            }
+            },
           },
         },
         ...workouts.edges.slice(editableWorkoutIndex + 1),
@@ -182,31 +186,27 @@ class WorkoutPlanBuilderService {
             exerciseAproaches: {
               edges: [],
             },
-          }
+          },
         },
       ],
     };
   }
 
-  isNewDayAvailable(workouts) {
-    return _.keys(_.groupBy(
-      workouts.edges,
-      ({ node: { date } }) => moment(date).weekday()
-    )).length < 7;
-  }
+  isNewDayAvailable = workouts => _.keys(_.groupBy(
+    workouts.edges,
+    ({ node: { date } }) => moment(date).weekday()
+  )).length < 7;
 
-  mapDataForRequest(innerData) {
-    return {
-      ...innerData,
-      workouts: innerData.workouts.edges.map(({ node }) => ({
+  mapDataForRequest = innerData => ({
+    ...innerData,
+    workouts: innerData.workouts.edges.map(({ node }) => ({
+      ...node,
+      exerciseAproaches: node.exerciseAproaches.edges.map(({ node }) => ({
         ...node,
-        exerciseAproaches: node.exerciseAproaches.edges.map(({ node }) => ({
-          ...node,
-          exercise: node.exercise.id,
-        })),
+        exercise: node.exercise.id,
       })),
-    };
-  }
+    })),
+  })
 }
 
 export default new WorkoutPlanBuilderService();

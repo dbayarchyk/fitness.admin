@@ -1,3 +1,1 @@
-import BackgroundSpinner from './BackgroundSpinner';
-
-export default BackgroundSpinner;
+export { default } from './BackgroundSpinner';

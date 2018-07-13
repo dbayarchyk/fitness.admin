@@ -1,3 +1,1 @@
-import SaveAsTemplateModal from './SaveAsTemplateModal';
-
-export default SaveAsTemplateModal;
+export { default } from './SaveAsTemplateModal';

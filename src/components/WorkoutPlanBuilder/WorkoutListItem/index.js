@@ -1,3 +1,1 @@
-import WorkoutListItem from './WorkoutListItem';
-
-export default WorkoutListItem;
+export { default } from './WorkoutListItem';

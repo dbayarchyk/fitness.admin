@@ -10,6 +10,6 @@ export default function (ComposedComponent, category) {
   return createRefetchContainer(
     ComposedComponent,
     manageService.getFragment(category),
-    manageService.gerRefetchQuery(category)
+    manageService.gerRefetchQuery(category),
   );
-};
+}

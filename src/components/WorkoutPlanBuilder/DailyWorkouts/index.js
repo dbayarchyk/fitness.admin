@@ -1,3 +1,1 @@
-import DailyWorkouts from './DailyWorkouts';
-
-export default DailyWorkouts;
+export { default } from './DailyWorkouts';

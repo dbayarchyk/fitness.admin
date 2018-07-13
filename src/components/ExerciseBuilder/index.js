@@ -1,3 +1,1 @@
-import ExerciseBuilder from './ExerciseBuilder';
-
-export default ExerciseBuilder;
+export { default } from './ExerciseBuilder';

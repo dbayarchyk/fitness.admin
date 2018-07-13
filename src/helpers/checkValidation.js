@@ -7,7 +7,7 @@
 
 const checkValidation = (validateObject, config) => {
   let isValid = true;
-  
+
   Object.keys(config).forEach((key) => {
     if (config[key] && config[key].isValid && !config[key].isValid(validateObject[key])) {
       isValid = false;
@@ -15,6 +15,6 @@ const checkValidation = (validateObject, config) => {
   });
 
   return isValid;
-}
+};
 
 export default checkValidation;
