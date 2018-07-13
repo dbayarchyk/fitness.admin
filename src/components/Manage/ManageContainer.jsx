@@ -8,7 +8,6 @@ import Manage from './Manage';
 import PropTypes from 'prop-types';
 import RenameModal from './RenameModal';
 import SaveAsTemplateModal from './SaveAsTemplateModal';
-import _ from 'lodash';
 import manageService from '../../services/manage.service';
 import { withRouter } from 'react-router-dom';
 
@@ -78,7 +77,7 @@ class ManageContainer extends Component {
   };
 
   actionClickHandler = (action) => {
-    if (_.isFunction(this[action])) {
+    if (typeof this[action] === 'function') {
       this[action](this.state.selectedItemId);
     } else {
       throw new Error(`There is no handler specified for ${action}`);

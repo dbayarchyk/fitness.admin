@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
 import {
   Toolbar,
   ToolbarGroup,
@@ -37,7 +36,7 @@ const validationConfig = {
     isValid: muscles => muscles && muscles.edges && muscles.edges.length,
   },
   complexity: {
-    isValid: value => value && _.isNumber(value),
+    isValid: value => value && typeof value === 'number',
   },
 };
 
@@ -101,7 +100,7 @@ class ExerciseBuilder extends Component {
     } = this.state;
     const { viewer, history } = this.props;
 
-    data.muscles = _.map(muscles.edges, 'node.id');
+    data.muscles = muscles.edges.map(({ node }) => node.id);
 
     CreateExerciseMutation(data, viewer)
       .then((response) => {
@@ -137,7 +136,7 @@ class ExerciseBuilder extends Component {
     } = this.state;
     const { viewer } = this.props;
 
-    data.muscles = _.map(muscles.edges, 'node.id');
+    data.muscles = muscles.edges.map(({ node }) => node.id);
 
     UpdateExerciseMutation(viewer.node.id, data, viewer)
       .then((response) => {
@@ -182,7 +181,7 @@ class ExerciseBuilder extends Component {
     this.setState(prevState => ({
       muscles: {
         ...prevState,
-        edges: _.filter(prevState.muscles.edges, ({ node }) => node.id !== id),
+        edges: prevState.muscles.edges.filter(({ node }) => node.id !== id),
       },
     }));
   }

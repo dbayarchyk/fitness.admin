@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 
 import { url as urlRegExp } from '../../constants/regExp';
@@ -12,15 +12,15 @@ export default {
   },
   meals: {
     isValid: (meals) => {
-      const groupedByWeekday = _.groupBy(
+      const groupedByWeekday = groupBy(
         meals.edges,
-        ({ node: { date } }) => moment(date).weekday()
+        ({ node: { date } }) => moment(date).weekday(),
       );
-      const isAllWeekCovered = _.keys(groupedByWeekday).length === 7;
+      const isAllWeekCovered = Object.keys(groupedByWeekday).length === 7;
       let atLeastOneFeedPerDay = true;
 
-      _.forEach(_.keys(groupedByWeekday), (weekday) => {
-        _.map(groupedByWeekday[weekday], (mealEdge) => {
+      Object.keys(groupedByWeekday).forEach((weekday) => {
+        groupedByWeekday[weekday].map((mealEdge) => {
           atLeastOneFeedPerDay = atLeastOneFeedPerDay && !!mealEdge.node.feeds.edges.length;
         });
       });

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import groupBy from 'lodash/groupBy';
 
 import { url as urlRegExp } from '../../constants/regExp';
 
@@ -11,7 +12,7 @@ export default {
   },
   workouts: {
     isValid: (workouts) => {
-      const groupedByWeekday = _.groupBy(
+      const groupedByWeekday = groupBy(
         workouts.edges,
         ({ node: { date } }) => moment(date).weekday(),
       );

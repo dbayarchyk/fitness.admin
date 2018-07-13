@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import CATEGORY from '../constants/manage/category';
 import COLUMNS from '../constants/manage/columns';
 import QUERIES from '../constants/manage/queries';
@@ -41,10 +39,11 @@ class ManageService {
 
   gerRefetchQuery = category => REFETCH_QUERIES[category];
 
-  getColumns = category => _.values(COLUMNS[category]);
+  getColumns = category => Object.values(COLUMNS[category]);
 
   getToolbarTitle = (category) => {
-    const categoryObject = _.find(_.values(CATEGORY), { type: category });
+    const categoryObject = Object.values(CATEGORY)
+      .find(categoryConfig => categoryConfig.type === category);
 
     return `Manage ${categoryObject.title}`;
   }
@@ -64,7 +63,7 @@ class ManageService {
   getEdgeByItemId = (category, viewer, id) => {
     const items = this.getItems(category, viewer);
 
-    return _.find(items.edges, ({ node }) => node.id === id);
+    return items.edges.find(({ node }) => node.id === id);
   }
 
   getItemById = (category, viewer, id) => {

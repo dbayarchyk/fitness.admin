@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
+import last from 'lodash/last';
 import moment from 'moment';
 
 class MealPlanBuilderService {
@@ -18,14 +19,14 @@ class MealPlanBuilderService {
 
   filterOutMealByDate = (meals, date) => ({
     ...meals,
-    edges: _.filter(meals.edges, ({ node }) => node.date !== date),
+    edges: meals.edges.filter(({ node }) => node.date !== date),
   })
 
   addMealByDate = (meals, date) => {
     const startDate = moment(date).startOf('day');
     const endDate = moment(date).startOf('day').add(1, 'd');
 
-    const { node: lastMealOfTheDay } = _.last(
+    const { node: lastMealOfTheDay } = last(
       meals.edges.filter(({ node: meal }) => moment(meal.date) >= startDate
                                              && moment(meal.date) < endDate),
     );
@@ -48,7 +49,7 @@ class MealPlanBuilderService {
   }
 
   updateMealDateByOldDate = (meals, date, newDate) => {
-    const editableIndex = _.findIndex(meals.edges, ({ node }) => node.date === date);
+    const editableIndex = meals.edges.findIndex(({ node }) => node.date === date);
 
     return {
       ...meals,
@@ -67,7 +68,7 @@ class MealPlanBuilderService {
   }
 
   filterOutFeedByIndexAndMealDate = (meals, mealDate, feedIndex) => {
-    const editableMealIndex = _.findIndex(meals.edges, ({ node }) => node.date === mealDate);
+    const editableMealIndex = meals.edges.findIndex(({ node }) => node.date === mealDate);
 
     return {
       ...meals,
@@ -92,7 +93,7 @@ class MealPlanBuilderService {
   }
 
   addFeedToMealByDate = (meals, mealDate, feed) => {
-    const editableMealIndex = _.findIndex(meals.edges, ({ node }) => node.date === mealDate);
+    const editableMealIndex = meals.edges.findIndex(({ node }) => node.date === mealDate);
     const newFeedEdge = {
       cursor: '',
       node: feed,
@@ -121,7 +122,7 @@ class MealPlanBuilderService {
   }
 
   updateFeedByIndexMealByDate = (meals, mealDate, updatedFeed, feedIndex) => {
-    const editableMealIndex = _.findIndex(meals.edges, ({ node }) => node.date === mealDate);
+    const editableMealIndex = meals.edges.findIndex(({ node }) => node.date === mealDate);
 
     return {
       ...meals,
@@ -150,7 +151,10 @@ class MealPlanBuilderService {
   }
 
   addNextDayMeal = (meals) => {
-    const lastDate = _.last((_.map(meals.edges, 'node.date')).sort((date1, date2) => new Date(date1) - new Date(date2)));
+    const lastDate = last(
+      meals.edges.map(({ node }) => node.date)
+        .sort((date1, date2) => new Date(date1) - new Date(date2)),
+    );
     const lastDateWeekDay = lastDate ? moment(lastDate).weekday() : moment().weekday(0);
 
     if (!this.isNewDayAvailable(meals)) {
@@ -176,7 +180,7 @@ class MealPlanBuilderService {
     };
   }
 
-  isNewDayAvailable = meals => _.keys(_.groupBy(
+  isNewDayAvailable = meals => Object.keys(groupBy(
     meals.edges,
     ({ node: { date } }) => moment(date).weekday(),
   )).length < 7;

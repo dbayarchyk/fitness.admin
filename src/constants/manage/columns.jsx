@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import _ from 'lodash';
+import capitalize from 'lodash/capitalize';
 import Avatar from 'material-ui/Avatar';
 
 import CATEGORY from './category';
@@ -17,7 +17,7 @@ const COLUMNS = {
     GROUP: {
       name: 'group',
       title: 'Group',
-      filter: _.capitalize,
+      filter: capitalize,
     },
     CREATED_DATE: {
       name: 'createdAt',
@@ -82,12 +82,12 @@ const COLUMNS = {
     PURPOSE: {
       name: 'purpose',
       title: 'Purpose',
-      filter: value => _.find(_.values(PURPOSE), { value }).title,
+      filter: value => Object.values(PURPOSE).find(purpose => purpose.value === value).title,
     },
     ROLE: {
       name: 'role',
       title: 'Role',
-      filter: _.capitalize,
+      filter: capitalize,
     },
     CREATED_DATE: {
       name: 'createdAt',

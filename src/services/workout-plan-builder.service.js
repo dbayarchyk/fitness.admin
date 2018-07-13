@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import last from 'lodash/last';
+import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 
 class WorkoutPlanBuilderService {
@@ -18,7 +19,7 @@ class WorkoutPlanBuilderService {
 
   filterOutWorkoutByDate = (workouts, date) => ({
     ...workouts,
-    edges: _.filter(workouts.edges, ({ node }) => node.date !== date),
+    edges: workouts.edges.filter(({ node }) => node.date !== date),
   })
 
   filterOutAllWorkoutsByDate = (workouts, date) => {
@@ -36,7 +37,7 @@ class WorkoutPlanBuilderService {
     const startDate = moment(date).startOf('day');
     const endDate = moment(date).startOf('day').add(1, 'd');
 
-    const { node: lastWorkoutOfTheDay } = _.last(
+    const { node: lastWorkoutOfTheDay } = last(
       workouts.edges.filter(({ node: workout }) => moment(workout.date) >= startDate
                                                    && moment(workout.date) < endDate),
     );
@@ -59,7 +60,7 @@ class WorkoutPlanBuilderService {
   }
 
   updateWorkoutDateByOldDate = (workouts, date, newDate) => {
-    const editableIndex = _.findIndex(workouts.edges, ({ node }) => node.date === date);
+    const editableIndex = workouts.edges.findIndex(({ node }) => node.date === date);
 
     return {
       ...workouts,
@@ -166,7 +167,10 @@ class WorkoutPlanBuilderService {
   }
 
   addNextDayWorkout(workouts) {
-    const lastDate = _.last((_.map(workouts.edges, 'node.date')).sort((date1, date2) => new Date(date1) - new Date(date2)));
+    const lastDate = last(
+      workouts.edges.map(({ node }) => node.date)
+        .sort((date1, date2) => new Date(date1) - new Date(date2)),
+    );
     const lastDateWeekDay = lastDate ? moment(lastDate).weekday() : moment().weekday(0);
 
     if (!this.isNewDayAvailable(workouts)) {
@@ -192,18 +196,18 @@ class WorkoutPlanBuilderService {
     };
   }
 
-  isNewDayAvailable = workouts => _.keys(_.groupBy(
+  isNewDayAvailable = workouts => Object.keys(groupBy(
     workouts.edges,
-    ({ node: { date } }) => moment(date).weekday()
+    ({ node: { date } }) => moment(date).weekday(),
   )).length < 7;
 
   mapDataForRequest = innerData => ({
     ...innerData,
-    workouts: innerData.workouts.edges.map(({ node }) => ({
-      ...node,
-      exerciseAproaches: node.exerciseAproaches.edges.map(({ node }) => ({
-        ...node,
-        exercise: node.exercise.id,
+    workouts: innerData.workouts.edges.map(({ node: workoutNode }) => ({
+      ...workoutNode,
+      exerciseAproaches: workoutNode.exerciseAproaches.edges.map(({ node: exerciseAproacheNode }) => ({
+        ...exerciseAproacheNode,
+        exercise: exerciseAproacheNode.exercise.id,
       })),
     })),
   })
