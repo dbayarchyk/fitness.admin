@@ -41,7 +41,7 @@ class SaveAsTemplateModal extends Component {
       title,
       open,
     } = this.props;
-    const { name } = this.name;
+    const { name } = this.state;
 
     return (
       <Dialog
