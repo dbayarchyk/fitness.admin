@@ -5,7 +5,6 @@
     "document": true,
     "window": true,
     "localStorage": true,
-    "fetch": true,
     "alert": true
   },
   "rules": {

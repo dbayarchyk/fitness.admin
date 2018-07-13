@@ -21,7 +21,7 @@ const network = Network.create((operation, variables) => new Promise((resolve, r
     headers.authorization = `Bearer ${token}`;
   }
 
-  fetch(CONFIG.API_URI, {
+  window.fetch(CONFIG.API_URI, {
     method: 'POST',
     headers,
     body: JSON.stringify({
