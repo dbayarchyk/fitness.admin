@@ -1,29 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay';
-import { withRouter } from 'react-router-dom';
 import {
   Toolbar,
   ToolbarGroup,
   ToolbarTitle,
 } from 'material-ui/Toolbar';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import TimePicker from 'material-ui/TimePicker';
-
-import VALIDATION_CONFIG from './validationConfig';
-
-import mealPlanBuilderService from '../../services/meal-plan-builder.service';
-
-import checkValidation from '../../helpers/checkValidation';
-
-import CreateMealPlanMutation from '../../mutations/CreateMealPlan';
-import UpdateMealPlanMutation from '../../mutations/UpdateMealPlan';
-
-import MealListGroupByDay from './MealListGroupByDay';
-import FeedModal from './FeedModal';
+import { createFragmentContainer, graphql } from 'react-relay';
 
 import BackgroundSpinner from '../framework/BackgroundSpinner';
+import CreateMealPlanMutation from '../../mutations/CreateMealPlan';
+import FeedModal from './FeedModal';
+import MealListGroupByDay from './MealListGroupByDay';
+import PropTypes from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import TimePicker from 'material-ui/TimePicker';
+import UpdateMealPlanMutation from '../../mutations/UpdateMealPlan';
+import VALIDATION_CONFIG from './validationConfig';
+import checkValidation from '../../helpers/checkValidation';
+import mealPlanBuilderService from '../../services/meal-plan-builder.service';
+import { withRouter } from 'react-router-dom';
 
 class MealPlanBuilder extends Component {
   static propTypes = {
@@ -98,7 +93,7 @@ class MealPlanBuilder extends Component {
   
         if (response.createMealPlan) {
           alert('Meal Plan has been created!');
-          this.props.history.push(`/meal-plan-builder/${response.createMealPlan.createdMealPlanEdge.node.id}`);
+          this.props.history.push(`/meal-plan-builder/creator/${response.createMealPlan.createdMealPlanEdge.node.id}`);
         } else {
           alert('Oops, something went wrong!')
         }

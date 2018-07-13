@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay';
-import { withRouter } from 'react-router-dom';
+import './styles.css';
+
 import {
   Card,
   CardMedia,
   CardTitle
 } from 'material-ui/Card';
+import React, { Component } from 'react';
 import {
   Toolbar,
   ToolbarGroup,
   ToolbarTitle,
 } from 'material-ui/Toolbar';
+import { createFragmentContainer, graphql } from 'react-relay';
 
-import './styles.css';
-
-import mealPlanBuilderService from '../../services/meal-plan-builder.service';
-
+import PropTypes from 'prop-types';
 import SelectMealPlanTemplateModal from './SelectMealPlanTemplateModal';
+import mealPlanBuilderService from '../../services/meal-plan-builder.service';
+import { withRouter } from 'react-router-dom';
 
 class MealPlanBuilderPreset extends Component {
   static propTypes = {
@@ -66,7 +65,7 @@ class MealPlanBuilderPreset extends Component {
               </CardMedia>
             </CardMedia>
 
-            <CardTitle title="Blank Plan" subtitle="Create plan from from scratch" />
+            <CardTitle title="Blank Plan" subtitle="Create plan from scratch" />
           </Card>
 
           <Card className="meal-plan-builder-preset__card" onClick={() => this.setState({ isSelectTemplateModalOpen: true })}>

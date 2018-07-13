@@ -161,7 +161,7 @@ class ManageContainer extends Component {
       case CATEGORY.WORKOUT_PLAN_TEMPLATES.type:
         return 'Create Plan From Template';
       default:
-      return 'Create new';
+        return 'Create new';
     }
   };
 

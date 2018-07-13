@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay';
-import { withRouter } from 'react-router-dom';
+import './styles.css';
+
 import {
   Card,
   CardMedia,
   CardTitle
 } from 'material-ui/Card';
+import React, { Component } from 'react';
 import {
   Toolbar,
   ToolbarGroup,
   ToolbarTitle,
 } from 'material-ui/Toolbar';
+import { createFragmentContainer, graphql } from 'react-relay';
 
-import './styles.css';
-
-import workoutPlanBuilderService from '../../services/workout-plan-builder.service';
-
+import PropTypes from 'prop-types';
 import SelectWorkoutPlanTemplateModal from './SelectWorkoutPlanTemplateModal';
+import { withRouter } from 'react-router-dom';
+import workoutPlanBuilderService from '../../services/workout-plan-builder.service';
 
 class WorkoutPlanBuilderPreset extends Component {
   static propTypes = {
@@ -66,7 +65,7 @@ class WorkoutPlanBuilderPreset extends Component {
               </CardMedia>
             </CardMedia>
 
-            <CardTitle title="Blank Plan" subtitle="Create plan from from scratch" />
+            <CardTitle title="Blank Plan" subtitle="Create plan from scratch" />
           </Card>
 
           <Card className="workout-plan-builder-preset__card" onClick={() => this.setState({ isSelectTemplateModalOpen: true })}>

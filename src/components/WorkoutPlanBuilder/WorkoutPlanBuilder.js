@@ -1,34 +1,29 @@
+import * as GENDER from '../../constants/gender';
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay';
-import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
 import {
   Toolbar,
   ToolbarGroup,
   ToolbarTitle,
 } from 'material-ui/Toolbar';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import TimePicker from 'material-ui/TimePicker';
-
-import * as GENDER from '../../constants/gender';
-
-import VALIDATION_CONFIG from './validationConfig';
-
-import workoutPlanBuilderService from '../../services/workout-plan-builder.service';
-
-import checkValidation from '../../helpers/checkValidation';
-
-import CreateWorkoutPlanMutation from '../../mutations/CreateWorkoutPlan';
-import UpdateWorkoutPlanMutation from '../../mutations/UpdateWorkoutPlan';
-
-import WorkoutListGroupByDay from './WorkoutListGroupByDay';
-import ExerciseAproachModal from './ExerciseAproachModal';
+import { createFragmentContainer, graphql } from 'react-relay';
 
 import BackgroundSpinner from '../framework/BackgroundSpinner';
+import CreateWorkoutPlanMutation from '../../mutations/CreateWorkoutPlan';
+import ExerciseAproachModal from './ExerciseAproachModal';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
+import TimePicker from 'material-ui/TimePicker';
+import UpdateWorkoutPlanMutation from '../../mutations/UpdateWorkoutPlan';
+import VALIDATION_CONFIG from './validationConfig';
+import WorkoutListGroupByDay from './WorkoutListGroupByDay';
+import _ from 'lodash';
+import checkValidation from '../../helpers/checkValidation';
+import { withRouter } from 'react-router-dom';
+import workoutPlanBuilderService from '../../services/workout-plan-builder.service';
 
 class WorkoutPlanBuilder extends Component {
   static propTypes = {
@@ -104,7 +99,7 @@ class WorkoutPlanBuilder extends Component {
   
         if (response.createWorkoutPlan) {
           alert('WorkoutPlan has been created!');
-          this.props.history.push(`/workout-plan-builder/${response.createWorkoutPlan.createdWorkoutPlanEdge.node.id}`);
+          this.props.history.push(`/workout-plan-builder/creator/${response.createWorkoutPlan.createdWorkoutPlanEdge.node.id}`);
         } else {
           alert('Oops, something went wrong!')
         }
