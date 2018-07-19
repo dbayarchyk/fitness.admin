@@ -14,7 +14,9 @@ export default function (ComposedComponent) {
 
     componentDidMount() {
       if (!authService.viewer) {
-        this.props.history.push('/signin');
+        const { history } = this.props;
+
+        history.push('/signin');
       }
     }
 
