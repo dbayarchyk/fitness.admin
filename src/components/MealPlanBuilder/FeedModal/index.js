@@ -1,3 +1,1 @@
-import FeedModal from './FeedModal';
-
-export default FeedModal;
+export { default } from './FeedModal';

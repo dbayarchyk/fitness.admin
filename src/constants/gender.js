@@ -12,4 +12,3 @@ export const FEMALE = {
   title: 'Female',
   value: 'FEMALE',
 };
-

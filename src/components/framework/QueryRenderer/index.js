@@ -1,3 +1,1 @@
-import QueryRenderer from './QueryRenderer';
-
-export default QueryRenderer;
+export { default } from './QueryRenderer';

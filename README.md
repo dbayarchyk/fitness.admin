@@ -3,7 +3,8 @@
 ## How to start
 
 * `npm install`
-* `npm run run-ios`
+* `npm run relay`
+* `npm start`
 
 ## Creating queries, mutations, subscription or fragments
 

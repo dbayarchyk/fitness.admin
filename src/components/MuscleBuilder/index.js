@@ -1,3 +1,1 @@
-import MuscleBuilder from './MuscleBuilder';
-
-export default MuscleBuilder;
+export { default } from './MuscleBuilder';

@@ -1,3 +1,1 @@
-import FeedListItem from './FeedListItem';
-
-export default FeedListItem;
+export { default } from './FeedListItem';

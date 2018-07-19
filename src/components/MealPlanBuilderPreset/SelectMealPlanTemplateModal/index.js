@@ -1,3 +1,1 @@
-import SelectMealPlanTemplateModal from './SelectMealPlanTemplateModal';
-
-export default SelectMealPlanTemplateModal;
+export { default } from './SelectMealPlanTemplateModal';

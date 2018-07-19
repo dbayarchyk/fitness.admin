@@ -1,3 +1,1 @@
-import WorkoutPlanBuilder from './WorkoutPlanBuilder';
-
-export default WorkoutPlanBuilder;
+export { default } from './WorkoutPlanBuilder';

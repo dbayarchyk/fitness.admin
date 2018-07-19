@@ -2,6 +2,19 @@
   "name": "fitness.admin",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "server": "npm run relay && webpack --mode production && node server.js",
+    "relay": "relay-compiler --src ./src --schema ./src/schema.graphql",
+    "build": "webpack --mode production",
+    "update-schema": "get-graphql-schema https://fitness-graphql-relay.herokuapp.com/graphql > ./src/schema.graphql",
+    "update-schema:local": "get-graphql-schema http://localhost:8080/graphql > ./src/schema.graphql"
+  },
+  "graphql": {
+    "request": {
+      "url": "https://fitness-graphql-relay.herokuapp.com/graphql"
+    }
+  },
   "dependencies": {
     "express": "^4.16.3",
     "graphql": "^0.13.2",
@@ -17,19 +30,6 @@
     "react-tap-event-plugin": "^3.0.2",
     "relay-runtime": "^1.6.0"
   },
-  "graphql": {
-    "request": {
-      "url": "https://fitness-graphql-relay.herokuapp.com/graphql"
-    }
-  },
-  "scripts": {
-    "start": "webpack-dev-server --mode development --open",
-    "server": "npm run relay && webpack --mode production && node server.js",
-    "relay": "relay-compiler --src ./src --schema ./src/schema.graphql",
-    "build": "webpack --mode production",
-    "update-schema": "get-graphql-schema https://fitness-graphql-relay.herokuapp.com/graphql > ./src/schema.graphql",
-    "update-schema:local": "get-graphql-schema http://localhost:8080/graphql > ./src/schema.graphql"
-  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
@@ -39,6 +39,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.10.0",
     "html-webpack-plugin": "^3.2.0",
     "relay-compiler": "^1.6.0",
     "style-loader": "^0.21.0",

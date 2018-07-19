@@ -1,3 +1,1 @@
-import SelectExerciseModal from './SelectExerciseModal';
-
-export default SelectExerciseModal;
+export { default } from './SelectExerciseModal';

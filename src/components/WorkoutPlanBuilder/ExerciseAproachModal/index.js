@@ -1,3 +1,1 @@
-import ExerciseAproachModal from './ExerciseAproachModal';
-
-export default ExerciseAproachModal;
+export { default } from './ExerciseAproachModal';

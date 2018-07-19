@@ -1,3 +1,1 @@
-import SelectWorkoutPlanTemplateModal from './SelectWorkoutPlanTemplateModal';
-
-export default SelectWorkoutPlanTemplateModal;
+export { default } from './SelectWorkoutPlanTemplateModal';

@@ -1,6 +1,6 @@
 import CATEGORY from '../category';
 import ManageMusclesRefetchQuery from './ManageMuscles';
-import ManageExercisesRefetchRefetchQuery from './ManageExercises'
+import ManageExercisesRefetchRefetchQuery from './ManageExercises';
 import ManageUsersRefetchQuery from './ManageUsers';
 import ManageFoodsRefetchQuery from './ManageFoods';
 import ManageMealPlansRefetchQuery from './ManageMealPlans';

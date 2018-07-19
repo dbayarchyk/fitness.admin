@@ -1,3 +1,1 @@
-import MealListItem from './MealListItem';
-
-export default MealListItem;
+export { default } from './MealListItem';

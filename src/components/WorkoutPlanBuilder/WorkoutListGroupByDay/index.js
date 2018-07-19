@@ -1,3 +1,1 @@
-import WorkoutListGroupByDay from './WorkoutListGroupByDay';
-
-export default WorkoutListGroupByDay;
+export { default } from './WorkoutListGroupByDay';

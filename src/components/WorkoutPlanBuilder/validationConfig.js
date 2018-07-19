@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import moment from 'moment';
+import groupBy from 'lodash/groupBy';
 
 import { url as urlRegExp } from '../../constants/regExp';
 
@@ -12,16 +12,17 @@ export default {
   },
   workouts: {
     isValid: (workouts) => {
-      const groupedByWeekday = _.groupBy(
+      const groupedByWeekday = groupBy(
         workouts.edges,
-        ({ node: { date } }) => moment(date).weekday()
+        ({ node: { date } }) => moment(date).weekday(),
       );
-      let atLeastOneWorkout = !!_.keys(groupedByWeekday).length;
+      const atLeastOneWorkout = !!Object.keys(groupedByWeekday).length;
       let atLeastOneExerciseAproachPerDay = true;
 
-      _.forEach(_.keys(groupedByWeekday), (weekday) => {
-        _.map(groupedByWeekday[weekday], (workoutEdge) => {
-          atLeastOneExerciseAproachPerDay = atLeastOneExerciseAproachPerDay && !!workoutEdge.node.exerciseAproaches.edges.length;
+      Object.keys(groupedByWeekday).forEach((weekday) => {
+        groupedByWeekday[weekday].map(({ node }) => {
+          atLeastOneExerciseAproachPerDay = atLeastOneExerciseAproachPerDay
+                                            && !!node.exerciseAproaches.edges.length;
         });
       });
 

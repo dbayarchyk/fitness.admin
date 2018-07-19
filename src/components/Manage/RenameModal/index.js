@@ -1,3 +1,1 @@
-import RenameModal from './RenameModal';
-
-export default RenameModal;
+export { default } from './RenameModal';

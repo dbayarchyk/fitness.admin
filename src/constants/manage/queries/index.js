@@ -1,6 +1,6 @@
 import CATEGORY from '../category';
 import ManageMusclesQuery from './ManageMuscles';
-import ManageExercisesQuery from './ManageExercises'
+import ManageExercisesQuery from './ManageExercises';
 import ManageUsersQuery from './ManageUsers';
 import ManageFoodsQuery from './ManageFoods';
 import ManageMealPlansQuery from './ManageMealPlans';

@@ -1,3 +1,1 @@
-import ManageContainer from './ManageContainer';
-
-export default ManageContainer;
+export { default } from './ManageContainer';

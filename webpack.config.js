@@ -1,28 +1,38 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/index.html",
-  filename: "./index.html"
+  template: './src/index.html',
+  filename: './index.html',
 });
 
 module.exports = {
+  devtool: 'source-map',
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
+    ],
+    modules: [
+      './node_modules',
+    ],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader",
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
           },
         ],
       },
@@ -31,6 +41,6 @@ module.exports = {
   plugins: [htmlPlugin],
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 };

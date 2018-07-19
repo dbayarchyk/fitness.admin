@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import CATEGORY from '../constants/manage/category';
 import COLUMNS from '../constants/manage/columns';
 import QUERIES from '../constants/manage/queries';
@@ -35,33 +33,24 @@ import SaveMealPlanAsTemplate from '../mutations/SaveMealPlanAsTemplate';
 import SaveWorkoutPlanAsTemplate from '../mutations/SaveWorkoutPlanAsTemplate';
 
 class ManageService {
-  getQuery(category) {
-    return QUERIES[category];
-  }
+  getQuery = category => QUERIES[category];
 
-  getFragment(category) {
-    return FRAGMENTS[category];
-  }
+  getFragment = category => FRAGMENTS[category];
 
-  gerRefetchQuery(category) {
-    return REFETCH_QUERIES[category];
-  }
+  gerRefetchQuery = category => REFETCH_QUERIES[category];
 
-  getColumns(category) {
-    return _.values(COLUMNS[category]);
-  }
+  getColumns = category => Object.values(COLUMNS[category]);
 
-  getToolbarTitle(category) {
-    const categoryObject = _.find(_.values(CATEGORY), { type: category });
+  getToolbarTitle = (category) => {
+    const categoryObject = Object.values(CATEGORY)
+      .find(categoryConfig => categoryConfig.type === category);
 
     return `Manage ${categoryObject.title}`;
   }
 
-  getToolbarActions(category) {
-    return TOOLBAR_ACTIONS[category];
-  }
+  getToolbarActions = category => TOOLBAR_ACTIONS[category];
 
-  getItems(category, viewer) {
+  getItems = (category, viewer) => {
     const items = viewer[category];
 
     if (!items) {
@@ -71,19 +60,19 @@ class ManageService {
     return items;
   }
 
-  getEdgeByItemId(category, viewer, id) {
+  getEdgeByItemId = (category, viewer, id) => {
     const items = this.getItems(category, viewer);
 
-    return _.find(items.edges, ({ node }) => node.id === id);
+    return items.edges.find(({ node }) => node.id === id);
   }
 
-  getItemById(category, viewer, id) {
+  getItemById = (category, viewer, id) => {
     const selectedEdge = this.getEdgeByItemId(category, viewer, id);
 
     return selectedEdge ? selectedEdge.node : null;
   }
 
-  getSortValue(sort) {
+  getSortValue = (sort) => {
     if (!sort || !sort.name) {
       return null;
     }
@@ -93,15 +82,13 @@ class ManageService {
     return direction === 'asc' ? name : `-${name}`;
   }
 
-  saveSortToLavalStorage(category, sort) {
+  saveSortToLavalStorage = (category, sort) => {
     localStorage.setItem(`manage-${category}-sort`, JSON.stringify(sort));
   }
 
-  getSortFromLocalStorage(category) {
-    return JSON.parse(localStorage.getItem(`manage-${category}-sort`));
-  }
+  getSortFromLocalStorage = category => JSON.parse(localStorage.getItem(`manage-${category}-sort`))
 
-  updateItemById(category, id, data, viewer) {
+  updateItemById = (category, id, data, viewer) => {
     const mutationsByCategory = {
       [CATEGORY.MUSCLES.type]: UpdateMuscle,
       [CATEGORY.EXERCISES.type]: UpdateExercise,
@@ -119,14 +106,14 @@ class ManageService {
     }
 
     return RenameMutation(id, data, viewer)
-            .catch((err) => {
-              if (err && err.errors) {
-                err.errors.forEach(error => alert(error.message));
-              }
-            });
+      .catch((err) => {
+        if (err && err.errors) {
+          err.errors.forEach(error => alert(error.message));
+        }
+      });
   }
 
-  removeItemById(category, id, viewer) {
+  removeItemById = (category, id, viewer) => {
     const mutationsByCategory = {
       [CATEGORY.MUSCLES.type]: RemoveMuscle,
       [CATEGORY.EXERCISES.type]: RemoveExercise,
@@ -144,14 +131,14 @@ class ManageService {
     }
 
     return RemoveMutation(id, viewer)
-            .catch((err) => {
-              if (err && err.errors) {
-                err.errors.forEach(error => alert(error.message));
-              }
-            });
+      .catch((err) => {
+        if (err && err.errors) {
+          err.errors.forEach(error => alert(error.message));
+        }
+      });
   }
 
-  copyItemById(category, id, viewer, insertAfter) {
+  copyItemById = (category, id, viewer, insertAfter) => {
     const mutationsByCategory = {
       [CATEGORY.MUSCLES.type]: CopyMuscle,
       [CATEGORY.EXERCISES.type]: CopyExercise,
@@ -169,14 +156,14 @@ class ManageService {
     }
 
     return CopyMutation(id, viewer, insertAfter)
-            .catch((err) => {
-              if (err && err.errors) {
-                err.errors.forEach(error => alert(error.message));
-              }
-            });
+      .catch((err) => {
+        if (err && err.errors) {
+          err.errors.forEach(error => alert(error.message));
+        }
+      });
   }
 
-  saveItemAsTemplate(category, id, templateName, viewer) {
+  saveItemAsTemplate = (category, id, templateName, viewer) => {
     const mutationsByCategory = {
       [CATEGORY.MEAL_PLANS.type]: SaveMealPlanAsTemplate,
       [CATEGORY.WORKOUT_PLANS.type]: SaveWorkoutPlanAsTemplate,
@@ -189,12 +176,12 @@ class ManageService {
     }
 
     return SaveAsTemplateMutation(id, templateName, viewer)
-            .then(() => alert('Saved'))
-            .catch((err) => {
-              if (err && err.errors) {
-                err.errors.forEach(error => alert(error.message));
-              }
-            });
+      .then(() => alert('Saved'))
+      .catch((err) => {
+        if (err && err.errors) {
+          err.errors.forEach(error => alert(error.message));
+        }
+      });
   }
 }
 

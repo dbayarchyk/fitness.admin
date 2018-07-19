@@ -1,3 +1,1 @@
-import SelectFoodModal from './SelectFoodModal';
-
-export default SelectFoodModal;
+export { default } from './SelectFoodModal';

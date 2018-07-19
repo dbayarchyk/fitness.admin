@@ -1,3 +1,1 @@
-import WorkoutPlanBuilderPreset from './WorkoutPlanBuilderPreset';
-
-export default WorkoutPlanBuilderPreset;
+export { default } from './WorkoutPlanBuilderPreset';
